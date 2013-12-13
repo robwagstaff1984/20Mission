@@ -11,10 +11,10 @@
 #import "RWDoorDetailViewController.h"
 
 #define NUMBER_OF_DOORS 42
-#define DOOR_HEIGHT_TO_WIDTH_RATIO (80.0 / 36.0)
 #define NUMBER_OF_DOORS_PER_ROW 3
 #define SPACING 6
 
+float const DoorHeightToWidthRatio = (80.0 / 36.0);
 static NSString *const CellIdentifier = @"CellIdentifier";
 
 @interface RWHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
@@ -30,7 +30,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 {
 
     [super viewDidLoad];
-
+    self.title = @"20Mission";
     self.view.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.doorsCollectionView];
     self.doorsCollectionView.delegate = self;
@@ -64,7 +64,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     CGFloat doorCellWidth = (self.view.bounds.size.width - ((NUMBER_OF_DOORS_PER_ROW - 1) * (SPACING*2))) / NUMBER_OF_DOORS_PER_ROW;
-    CGFloat doorCellHeight = doorCellWidth * DOOR_HEIGHT_TO_WIDTH_RATIO;
+    CGFloat doorCellHeight = doorCellWidth * DoorHeightToWidthRatio;
     return CGSizeMake(doorCellWidth, doorCellHeight);
 }
 
@@ -87,19 +87,21 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
 
     RWDoorCollectionViewCell *cell = (RWDoorCollectionViewCell*)[self.doorsCollectionView cellForItemAtIndexPath:indexPath];
-    
     RWDoorDetailViewController *doorDetailViewController = [[RWDoorDetailViewController alloc] init];
+    [doorDetailViewController setDoorDetailImage:cell.getCurrentImage withInitialRect:[self calculateRectRelativeToCollectionViewForCell:cell]];
     
-    [doorDetailViewController setDoorDetailImage:cell.getCurrentImage withInitialRect:cell.frame];
-    
-    [self presentViewController:doorDetailViewController animated:NO completion:nil];
-    
+    [self.navigationController pushViewController:doorDetailViewController animated:NO];
+}
+
+-(CGRect) calculateRectRelativeToCollectionViewForCell:(UICollectionViewCell*)cell {
+    CGRect convertedRect = [self.doorsCollectionView convertRect:cell.frame toView:self.view];
+    convertedRect = CGRectMake(convertedRect.origin.x, convertedRect.origin.y - NAV_BAR_AND_STATUS_BAR_HEIGHT, convertedRect.size.width, convertedRect.size.height);
+    return convertedRect;
 }
 
 #pragma mark lazy loaded getters
 -(UICollectionView*) doorsCollectionView {
     if (!_doorsCollectionView) {
-        
         _doorsCollectionView = [[UICollectionView alloc] initWithFrame:self.view.bounds collectionViewLayout:self.doorsCollectionViewLayout];
     }
     return _doorsCollectionView;

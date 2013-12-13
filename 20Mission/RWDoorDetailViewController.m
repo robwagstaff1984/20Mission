@@ -7,14 +7,20 @@
 //
 
 #import "RWDoorDetailViewController.h"
+#import "RWHomeViewController.h"
+#import "AppDelegate.h"
+
+#define DOOR_ZOOM_ANIMATION_TIME 0.7
 
 @interface RWDoorDetailViewController ()
 @property (nonatomic, strong) UIImageView* doorDetailImageView;
+@property (nonatomic) CGRect initialDoorImageRect;
 
 @end
 
 @implementation RWDoorDetailViewController
 
+#pragma mark view cycle
 
 - (void)viewDidLoad
 {
@@ -23,17 +29,37 @@
 }
 
 -(void) viewDidAppear:(BOOL)animated {
-    [self.view setFrame:CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20)];
     
-    [UIView animateWithDuration:0.5 animations:^{
-        self.doorDetailImageView.frame = self.view.bounds;
+    [UIView animateWithDuration:DOOR_ZOOM_ANIMATION_TIME animations:^{
+        self.doorDetailImageView.frame = [self fullSizeDoorRect];
     }];
 }
 
+#pragma mark custom navigation back behaviour
+-(void) shouldZoomOutOnPopNavigationItem {
+    
+    [UIView animateWithDuration:DOOR_ZOOM_ANIMATION_TIME animations:^{
+        self.doorDetailImageView.frame = self.initialDoorImageRect;
+    } completion:^(BOOL finished) {
+        AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
+        UINavigationController* rootNavigationController = (UINavigationController*) delegate.window.rootViewController;
+        [rootNavigationController popViewControllerAnimated:NO];
+    }];
+}
 
+#pragma mark helper methods
+-(CGRect) fullSizeDoorRect {
+    float fullSizeDoorHeight = self.view.frame.size.height - NAV_BAR_AND_STATUS_BAR_HEIGHT;
+    float fullSizeDoorWidth = floor(fullSizeDoorHeight / DoorHeightToWidthRatio);
+    return CGRectMake((self.view.frame.size.width - fullSizeDoorWidth) / 2, NAV_BAR_AND_STATUS_BAR_HEIGHT, fullSizeDoorWidth, fullSizeDoorHeight);
+}
+
+#pragma mark lazy loaders
 -(void) setDoorDetailImage:(UIImage*)image withInitialRect:(CGRect)initialRect {
+    
     [self.doorDetailImageView setImage:image];
-    [self.doorDetailImageView setFrame:initialRect];
+    self.initialDoorImageRect = CGRectMake(initialRect.origin.x, initialRect.origin.y + NAV_BAR_AND_STATUS_BAR_HEIGHT, initialRect.size.width, initialRect.size.height);
+    [self.doorDetailImageView setFrame:self.initialDoorImageRect];
 }
 
 -(UIImageView*) doorDetailImageView

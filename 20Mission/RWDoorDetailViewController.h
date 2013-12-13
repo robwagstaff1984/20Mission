@@ -11,5 +11,6 @@
 @interface RWDoorDetailViewController : UIViewController
 
 -(void)setDoorDetailImage:(UIImage*)image withInitialRect:(CGRect)initialRect;
+-(void) shouldZoomOutOnPopNavigationItem;
 
 @end

@@ -15,21 +15,13 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    [application setStatusBarStyle:UIStatusBarStyleDefault];
-
     RWHomeViewController *homeViewController = [[RWHomeViewController alloc] init];
+    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     
-    self.window.rootViewController = homeViewController;
+    self.window.rootViewController = navigationController;
     [self.window makeKeyAndVisible];
-    [self adjustHomeViewControllerFrameForNonTansluscentStatusBar];
     
     return YES;
-}
-
-/* TODO: Find a better way to handle the ios7 status bar overlapping the views*/
--(void) adjustHomeViewControllerFrameForNonTansluscentStatusBar{
-    self.window.backgroundColor = [UIColor whiteColor];
-    self.window.rootViewController.view.frame = CGRectMake(0, 20, self.window.frame.size.width, self.window.frame.size.height - 20);
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

@@ -1,5 +1,5 @@
 //
-//  HomeViewController.h
+//  UINavigationBar+ZoomDoorOut.h
 //  20Mission
 //
 //  Created by Robert Wagstaff on 12/13/13.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-extern float const DoorHeightToWidthRatio;
-
-@interface RWHomeViewController : UIViewController
+@interface UINavigationBar (ZoomDoorOut)
 
 @end

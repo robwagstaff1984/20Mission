@@ -25,8 +25,11 @@
     NSString* imageName = [NSString stringWithFormat:@"Door%d.png", doorNumber];
     UIImage *doorImage = [UIImage imageNamed:imageName];
     
-
     [_doorImageView setImage:doorImage];
+}
+
+-(UIImage*) getCurrentImage {
+    return self.doorImageView.image;
 }
 
 @end

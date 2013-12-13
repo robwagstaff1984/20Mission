@@ -8,6 +8,7 @@
 
 #import "RWHomeViewController.h"
 #import "RWDoorCollectionViewCell.h"
+#import "RWDoorDetailViewController.h"
 
 #define NUMBER_OF_DOORS 42
 #define DOOR_HEIGHT_TO_WIDTH_RATIO (80.0 / 36.0)
@@ -27,7 +28,9 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 #pragma mark View life cycle
 - (void)viewDidLoad
 {
+
     [super viewDidLoad];
+
     self.view.backgroundColor = [UIColor redColor];
     [self.view addSubview:self.doorsCollectionView];
     self.doorsCollectionView.delegate = self;
@@ -78,6 +81,19 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     return UIEdgeInsetsMake(SPACING, SPACING, SPACING, SPACING);
+}
+
+#pragma mark UICollectionViewDelegate 
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+
+    RWDoorCollectionViewCell *cell = (RWDoorCollectionViewCell*)[self.doorsCollectionView cellForItemAtIndexPath:indexPath];
+    
+    RWDoorDetailViewController *doorDetailViewController = [[RWDoorDetailViewController alloc] init];
+    
+    [doorDetailViewController setDoorDetailImage:cell.getCurrentImage withInitialRect:cell.frame];
+    
+    [self presentViewController:doorDetailViewController animated:NO completion:nil];
+    
 }
 
 #pragma mark lazy loaded getters

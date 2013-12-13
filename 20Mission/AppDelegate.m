@@ -7,7 +7,7 @@
 //
 
 #import "AppDelegate.h"
-#import "HomeViewController.h"
+#import "RWHomeViewController.h"
 
 @implementation AppDelegate
 
@@ -17,7 +17,7 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    HomeViewController *homeViewController = [[HomeViewController alloc] init];
+    RWHomeViewController *homeViewController = [[RWHomeViewController alloc] init];
     self.window.rootViewController = homeViewController;
     [self.window makeKeyAndVisible];
 

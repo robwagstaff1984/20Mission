@@ -6,18 +6,22 @@
 //  Copyright (c) 2013 Robert Wagstaff. All rights reserved.
 //
 
-#import "HomeViewController.h"
+#import "RWHomeViewController.h"
+#import "RWDoorCollectionViewCell.h"
 
 #define NUMBER_OF_DOORS 42
+#define DOOR_HEIGHT_TO_WIDTH_RATIO (80.0 / 36.0)
+#define NUMBER_OF_DOORS_PER_ROW 3
+#define SPACING 6
 
 static NSString *const CellIdentifier = @"CellIdentifier";
 
-@interface HomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
+@interface RWHomeViewController () <UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout>
 @property (nonatomic, strong) UICollectionView* doorsCollectionView;
 @property (nonatomic, strong) UICollectionViewFlowLayout *doorsCollectionViewLayout;
 @end
 
-@implementation HomeViewController
+@implementation RWHomeViewController
 
 
 #pragma mark View life cycle
@@ -28,7 +32,8 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     [self.view addSubview:self.doorsCollectionView];
     self.doorsCollectionView.delegate = self;
     self.doorsCollectionView.dataSource = self;
-    [self.doorsCollectionView registerClass:[UICollectionViewCell class] forCellWithReuseIdentifier:CellIdentifier];
+    self.doorsCollectionView.backgroundColor= [UIColor whiteColor];
+    [self.doorsCollectionView registerClass:[RWDoorCollectionViewCell class] forCellWithReuseIdentifier:CellIdentifier];
 }
 
 #pragma mark UICollectionView datasource
@@ -44,8 +49,9 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
+    RWDoorCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:CellIdentifier forIndexPath:indexPath];
     cell.backgroundColor = [UIColor blueColor];
+    [cell setImageForDoorNumber:indexPath.row + 1];
     return cell;
     
 }
@@ -54,23 +60,24 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 #pragma mark - UICollectionViewDelegateFlowLayout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    CGFloat itemSize = (self.view.bounds.size.width / 3) - 3;
-    return CGSizeMake(itemSize, itemSize);
+    CGFloat doorCellWidth = (self.view.bounds.size.width - ((NUMBER_OF_DOORS_PER_ROW - 1) * (SPACING*2))) / NUMBER_OF_DOORS_PER_ROW;
+    CGFloat doorCellHeight = doorCellWidth * DOOR_HEIGHT_TO_WIDTH_RATIO;
+    return CGSizeMake(doorCellWidth, doorCellHeight);
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 2;
+    return SPACING;
 }
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 2;
+    return SPACING;
 }
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(2, 2, 2, 2);
+    return UIEdgeInsetsMake(SPACING, SPACING, SPACING, SPACING);
 }
 
 #pragma mark lazy loaded getters
@@ -87,7 +94,6 @@ static NSString *const CellIdentifier = @"CellIdentifier";
         _doorsCollectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
         [_doorsCollectionViewLayout setItemSize:CGSizeMake(320, 200)];
         [_doorsCollectionViewLayout setSectionInset:UIEdgeInsetsMake(0, 0, 0, 0)];
-        [_doorsCollectionViewLayout setScrollDirection:UICollectionViewScrollDirectionHorizontal];
         _doorsCollectionViewLayout.minimumLineSpacing = 0;
         _doorsCollectionViewLayout.minimumInteritemSpacing = 0;
     }

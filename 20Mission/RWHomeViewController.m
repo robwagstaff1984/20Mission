@@ -9,6 +9,7 @@
 #import "RWHomeViewController.h"
 #import "RWDoorCollectionViewCell.h"
 #import "RWDoorDetailViewController.h"
+#import "UIView+screenGrab.h"
 
 #define NUMBER_OF_DOORS 42
 #define NUMBER_OF_DOORS_PER_ROW 3
@@ -89,8 +90,13 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     RWDoorCollectionViewCell *cell = (RWDoorCollectionViewCell*)[self.doorsCollectionView cellForItemAtIndexPath:indexPath];
     RWDoorDetailViewController *doorDetailViewController = [[RWDoorDetailViewController alloc] init];
     [doorDetailViewController setDoorDetailImage:cell.getCurrentImage withInitialRect:[self calculateRectRelativeToCollectionViewForCell:cell]];
+
+    UIImageView* transitionImageScreenshot = [self.view screenshotImageViewWithCroppingRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
+    [doorDetailViewController setTransitionImageView:transitionImageScreenshot];
     
+    [doorDetailViewController setTitle:[NSString stringWithFormat:@"Door %d", indexPath.row+1]];
     [self.navigationController pushViewController:doorDetailViewController animated:NO];
+    
 }
 
 -(CGRect) calculateRectRelativeToCollectionViewForCell:(UICollectionViewCell*)cell {

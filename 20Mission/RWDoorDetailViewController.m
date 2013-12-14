@@ -15,7 +15,8 @@
 @interface RWDoorDetailViewController ()
 @property (nonatomic, strong) UIImageView* doorDetailImageView;
 @property (nonatomic) CGRect initialDoorImageRect;
-
+@property (nonatomic, strong) UIImageView* transitionImageView;
+@property (nonatomic, strong) UIView* hideSelectedDoorFromTransitionView;
 @end
 
 @implementation RWDoorDetailViewController
@@ -25,10 +26,13 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
 }
 
 -(void) viewDidAppear:(BOOL)animated {
+
+    self.view.backgroundColor = [UIColor colorWithPatternImage:self.transitionImageView.image];
+    [self.hideSelectedDoorFromTransitionView setFrame:self.initialDoorImageRect];
+    [self.view sendSubviewToBack:self.hideSelectedDoorFromTransitionView];
     
     [UIView animateWithDuration:DOOR_ZOOM_ANIMATION_TIME animations:^{
         self.doorDetailImageView.frame = [self fullSizeDoorRect];
@@ -71,6 +75,17 @@
     return _doorDetailImageView;
 }
 
+-(UIView*) hideSelectedDoorFromTransitionView {
+    if (!_hideSelectedDoorFromTransitionView) {
+        _hideSelectedDoorFromTransitionView = [[UIView alloc] init];
+        [_hideSelectedDoorFromTransitionView setBackgroundColor:[UIColor whiteColor]];
+        [self.view addSubview:_hideSelectedDoorFromTransitionView];
+    }
+    return _hideSelectedDoorFromTransitionView;
+}
 
+-(void)setTransitionImageView:(UIImageView*)transitionImageView {
+    _transitionImageView = transitionImageView;
+}
 
 @end

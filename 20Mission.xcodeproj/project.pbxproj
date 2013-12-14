@@ -64,6 +64,7 @@
 		4AB7F131185BA1DA003974E6 /* Door42.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AB7F107185BA1DA003974E6 /* Door42.png */; };
 		4AB7F134185BB66F003974E6 /* RWDoorDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB7F133185BB66F003974E6 /* RWDoorDetailViewController.m */; };
 		4AB7F137185BC6FB003974E6 /* UINavigationBar+ZoomDoorOut.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB7F136185BC6FB003974E6 /* UINavigationBar+ZoomDoorOut.m */; };
+		4AB7F13B185BDA9B003974E6 /* UIView+screenGrab.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB7F13A185BDA9B003974E6 /* UIView+screenGrab.m */; };
 		4AFB4EEF185B8BA6009447EF /* RWDoorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4EEE185B8BA6009447EF /* RWDoorCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -142,6 +143,8 @@
 		4AB7F133185BB66F003974E6 /* RWDoorDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDoorDetailViewController.m; sourceTree = "<group>"; };
 		4AB7F135185BC6FB003974E6 /* UINavigationBar+ZoomDoorOut.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+ZoomDoorOut.h"; sourceTree = "<group>"; };
 		4AB7F136185BC6FB003974E6 /* UINavigationBar+ZoomDoorOut.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+ZoomDoorOut.m"; sourceTree = "<group>"; };
+		4AB7F139185BDA9B003974E6 /* UIView+screenGrab.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+screenGrab.h"; sourceTree = "<group>"; };
+		4AB7F13A185BDA9B003974E6 /* UIView+screenGrab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+screenGrab.m"; sourceTree = "<group>"; };
 		4AFB4EED185B8BA6009447EF /* RWDoorCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWDoorCollectionViewCell.h; sourceTree = "<group>"; };
 		4AFB4EEE185B8BA6009447EF /* RWDoorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDoorCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -252,6 +255,7 @@
 		4AB64E2D185B767A00D64442 /* 20Mission */ = {
 			isa = PBXGroup;
 			children = (
+				4AB7F138185BDA3C003974E6 /* Categories */,
 				4AB64E57185B76DA00D64442 /* Model */,
 				4AB64E56185B76CE00D64442 /* View */,
 				4AFB4EF0185B8BAD009447EF /* Controller */,
@@ -296,8 +300,6 @@
 			children = (
 				4AFB4EED185B8BA6009447EF /* RWDoorCollectionViewCell.h */,
 				4AFB4EEE185B8BA6009447EF /* RWDoorCollectionViewCell.m */,
-				4AB7F135185BC6FB003974E6 /* UINavigationBar+ZoomDoorOut.h */,
-				4AB7F136185BC6FB003974E6 /* UINavigationBar+ZoomDoorOut.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -307,6 +309,17 @@
 			children = (
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		4AB7F138185BDA3C003974E6 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				4AB7F139185BDA9B003974E6 /* UIView+screenGrab.h */,
+				4AB7F13A185BDA9B003974E6 /* UIView+screenGrab.m */,
+				4AB7F135185BC6FB003974E6 /* UINavigationBar+ZoomDoorOut.h */,
+				4AB7F136185BC6FB003974E6 /* UINavigationBar+ZoomDoorOut.m */,
+			);
+			name = Categories;
 			sourceTree = "<group>";
 		};
 		4AFB4EF0185B8BAD009447EF /* Controller */ = {
@@ -460,6 +473,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4AB64E38185B767A00D64442 /* AppDelegate.m in Sources */,
+				4AB7F13B185BDA9B003974E6 /* UIView+screenGrab.m in Sources */,
 				4AB7F137185BC6FB003974E6 /* UINavigationBar+ZoomDoorOut.m in Sources */,
 				4AB64E34185B767A00D64442 /* main.m in Sources */,
 				4AFB4EEF185B8BA6009447EF /* RWDoorCollectionViewCell.m in Sources */,

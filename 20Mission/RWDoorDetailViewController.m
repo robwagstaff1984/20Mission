@@ -9,6 +9,7 @@
 #import "RWDoorDetailViewController.h"
 #import "RWHomeViewController.h"
 #import "AppDelegate.h"
+#import "RWDoorAnimation.h"
 
 #define DOOR_ZOOM_ANIMATION_TIME 0.5
 #define DOOR_DASHBOARD_ANIMATION_TIME 0.4 
@@ -19,6 +20,7 @@
 @property (nonatomic, strong) UIImageView* doorDetailImageView;
 @property (nonatomic) CGRect initialDoorImageRect;
 @property (nonatomic, strong) UIImageView* transitionImageView;
+@property (nonatomic, strong) UIImageView* roomImageView;
 @property (nonatomic, strong) UIView* hideSelectedDoorFromTransitionView;
 @property (nonatomic, strong) UIView* doorDashboardView;
 @end
@@ -48,9 +50,11 @@
         
         [UIView animateWithDuration:DOOR_DASHBOARD_ANIMATION_TIME animations:^{
             self.doorDashboardView.alpha = 1;
+            [self addDoorKnockGestureRecognizer];
         }];
     }];
 }
+
 
 #pragma mark custom navigation back behaviour
 -(void) shouldZoomOutOnPopNavigationItem {
@@ -83,6 +87,8 @@
 
 -(void) setupDoorDetailImageView {
     self.doorDetailImageView =[[UIImageView alloc] init];
+    self.doorDetailImageView.userInteractionEnabled = YES;
+    
     [self.view addSubview:self.doorDetailImageView];
 }
 
@@ -101,6 +107,28 @@
 
 -(void)setTransitionImageView:(UIImageView*)transitionImageView {
     _transitionImageView = transitionImageView;
+}
+
+-(void) setupRoomImageView {
+    self.roomImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Room4.png"]];
+}
+
+#pragma mark door knock gesture
+
+-(void) addDoorKnockGestureRecognizer {
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
+    tapGesture.numberOfTapsRequired = 2;
+    
+    [self.doorDetailImageView addGestureRecognizer:tapGesture];
+}
+
+- (void)handleDoubleTapGesture:(UITapGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+        NSLog(@"Knocked");
+        [self setupRoomImageView];
+        RWDoorAnimation *doorAnimation = [[RWDoorAnimation alloc] initWithBaseView:self.view doorView:self.doorDetailImageView roomView:self.roomImageView];
+        [doorAnimation performOpenDoorAnimation];
+    }
 }
 
 @end

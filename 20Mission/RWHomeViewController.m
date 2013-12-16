@@ -94,7 +94,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     UIImageView* transitionImageScreenshot = [self.view screenshotImageViewWithCroppingRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [doorDetailViewController setTransitionImageView:transitionImageScreenshot];
     
-    [doorDetailViewController setTitle:[NSString stringWithFormat:@"Door %d", indexPath.row+1]];
+    [doorDetailViewController setTitle:[NSString stringWithFormat:@"Door %ld", indexPath.row+1]];
     [self.navigationController pushViewController:doorDetailViewController animated:NO];
     
 }

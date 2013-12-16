@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		4A975D27185F84CD003546F1 /* RWDoorAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A975D26185F84CD003546F1 /* RWDoorAnimation.m */; };
 		4A975D29185F920C003546F1 /* Room4.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D28185F920C003546F1 /* Room4.png */; };
+		4A975D2B185F9E86003546F1 /* Room4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D2A185F9E86003546F1 /* Room4@2x.png */; };
+		4A975D32185F9ED8003546F1 /* Room5.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D30185F9ED8003546F1 /* Room5.png */; };
+		4A975D33185F9ED8003546F1 /* Room5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D31185F9ED8003546F1 /* Room5@2x.png */; };
+		4A975D36185F9F64003546F1 /* Room2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D34185F9F64003546F1 /* Room2.png */; };
+		4A975D37185F9F64003546F1 /* Room3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D35185F9F64003546F1 /* Room3.png */; };
 		4AB64E28185B767A00D64442 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB64E27185B767A00D64442 /* Foundation.framework */; };
 		4AB64E2A185B767A00D64442 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB64E29185B767A00D64442 /* CoreGraphics.framework */; };
 		4AB64E2C185B767A00D64442 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB64E2B185B767A00D64442 /* UIKit.framework */; };
@@ -84,6 +89,11 @@
 		4A975D25185F84CD003546F1 /* RWDoorAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWDoorAnimation.h; sourceTree = "<group>"; };
 		4A975D26185F84CD003546F1 /* RWDoorAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDoorAnimation.m; sourceTree = "<group>"; };
 		4A975D28185F920C003546F1 /* Room4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Room4.png; path = images/Room4.png; sourceTree = "<group>"; };
+		4A975D2A185F9E86003546F1 /* Room4@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Room4@2x.png"; path = "images/Room4@2x.png"; sourceTree = "<group>"; };
+		4A975D30185F9ED8003546F1 /* Room5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Room5.png; path = images/Room5.png; sourceTree = "<group>"; };
+		4A975D31185F9ED8003546F1 /* Room5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Room5@2x.png"; path = "images/Room5@2x.png"; sourceTree = "<group>"; };
+		4A975D34185F9F64003546F1 /* Room2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Room2.png; path = images/Room2.png; sourceTree = "<group>"; };
+		4A975D35185F9F64003546F1 /* Room3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Room3.png; path = images/Room3.png; sourceTree = "<group>"; };
 		4AB64E24185B767A00D64442 /* 20Mission.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 20Mission.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AB64E27185B767A00D64442 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4AB64E29185B767A00D64442 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -223,7 +233,12 @@
 				4AB7F105185BA1DA003974E6 /* Door40.png */,
 				4AB7F106185BA1DA003974E6 /* Door41.png */,
 				4AB7F107185BA1DA003974E6 /* Door42.png */,
+				4A975D34185F9F64003546F1 /* Room2.png */,
+				4A975D35185F9F64003546F1 /* Room3.png */,
+				4A975D30185F9ED8003546F1 /* Room5.png */,
+				4A975D31185F9ED8003546F1 /* Room5@2x.png */,
 				4A975D28185F920C003546F1 /* Room4.png */,
+				4A975D2A185F9E86003546F1 /* Room4@2x.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -425,10 +440,12 @@
 				4AB64E32185B767A00D64442 /* InfoPlist.strings in Resources */,
 				4AB7F122185BA1DA003974E6 /* Door27.png in Resources */,
 				4AB7F113185BA1DA003974E6 /* Door12.png in Resources */,
+				4A975D32185F9ED8003546F1 /* Room5.png in Resources */,
 				4AB7F11C185BA1DA003974E6 /* Door21.png in Resources */,
 				4AB7F120185BA1DA003974E6 /* Door25.png in Resources */,
 				4AB7F11D185BA1DA003974E6 /* Door22.png in Resources */,
 				4A975D29185F920C003546F1 /* Room4.png in Resources */,
+				4A975D37185F9F64003546F1 /* Room3.png in Resources */,
 				4AB7F124185BA1DA003974E6 /* Door29.png in Resources */,
 				4AB7F114185BA1DA003974E6 /* Door13.png in Resources */,
 				4AB7F130185BA1DA003974E6 /* Door41.png in Resources */,
@@ -441,12 +458,14 @@
 				4AB7F10B185BA1DA003974E6 /* Door4.png in Resources */,
 				4AB7F129185BA1DA003974E6 /* Door34.png in Resources */,
 				4AB7F11A185BA1DA003974E6 /* Door19.png in Resources */,
+				4A975D36185F9F64003546F1 /* Room2.png in Resources */,
 				4AB7F11F185BA1DA003974E6 /* Door24.png in Resources */,
 				4AB7F10A185BA1DA003974E6 /* Door3.png in Resources */,
 				4AB7F12B185BA1DA003974E6 /* Door36.png in Resources */,
 				4AB7F12A185BA1DA003974E6 /* Door35.png in Resources */,
 				4AB7F110185BA1DA003974E6 /* Door9.png in Resources */,
 				4AB7F111185BA1DA003974E6 /* Door10.png in Resources */,
+				4A975D33185F9ED8003546F1 /* Room5@2x.png in Resources */,
 				4AB7F125185BA1DA003974E6 /* Door30.png in Resources */,
 				4AB7F109185BA1DA003974E6 /* Door2.png in Resources */,
 				4AB7F117185BA1DA003974E6 /* Door16.png in Resources */,
@@ -462,6 +481,7 @@
 				4AB7F108185BA1DA003974E6 /* Door1.png in Resources */,
 				4AB7F119185BA1DA003974E6 /* Door18.png in Resources */,
 				4AB7F128185BA1DA003974E6 /* Door33.png in Resources */,
+				4A975D2B185F9E86003546F1 /* Room4@2x.png in Resources */,
 				4AB7F116185BA1DA003974E6 /* Door15.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

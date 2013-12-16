@@ -20,7 +20,7 @@
 @property (nonatomic, strong) UIImageView* doorDetailImageView;
 @property (nonatomic) CGRect initialDoorImageRect;
 @property (nonatomic, strong) UIImageView* transitionImageView;
-@property (nonatomic, strong) UIImageView* roomImageView;
+@property (nonatomic, strong) UIImage* roomImage;
 @property (nonatomic, strong) UIView* hideSelectedDoorFromTransitionView;
 @property (nonatomic, strong) UIView* doorDashboardView;
 @end
@@ -110,7 +110,11 @@
 }
 
 -(void) setupRoomImageView {
-    self.roomImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"Room4.png"]];
+  //  self.roomImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+
+//        self.roomImageView.contentMode = UIViewContentModeCenter;
+    //[self.roomImageView setImage:[UIImage imageNamed:@"Room4.png"]];
+    self.roomImage = [UIImage imageNamed:@"Room4.png"];
 }
 
 #pragma mark door knock gesture
@@ -126,7 +130,7 @@
     if (sender.state == UIGestureRecognizerStateRecognized) {
         NSLog(@"Knocked");
         [self setupRoomImageView];
-        RWDoorAnimation *doorAnimation = [[RWDoorAnimation alloc] initWithBaseView:self.view doorView:self.doorDetailImageView roomView:self.roomImageView];
+        RWDoorAnimation *doorAnimation = [[RWDoorAnimation alloc] initWithBaseView:self.view doorView:self.doorDetailImageView roomView:self.roomImage];
         [doorAnimation performOpenDoorAnimation];
     }
 }

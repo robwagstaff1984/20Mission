@@ -25,12 +25,12 @@ CGFloat degreeToRadian(CGFloat degree)
 @implementation RWDoorAnimation
 
 
-- (id)initWithBaseView:(UIView *)baseView doorView:(UIView *)doorView roomView:(UIView *)roomView
+- (id)initWithBaseView:(UIView *)baseView doorView:(UIView *)doorView roomView:(UIImage *)roomImage
 {
     if((self = [super init])) {
         self.view = baseView;
         self.doorView = doorView;
-        self.roomView = roomView;
+        self.roomImage = roomImage;
     }
     return self;
 }
@@ -38,6 +38,8 @@ CGFloat degreeToRadian(CGFloat degree)
 
 -(void) performOpenDoorAnimation {
 
+    
+    [self.doorView removeFromSuperview];
     self.doorFrameLayer = [CALayer layer];
     self.doorFrameLayer.frame = self.doorView.frame;
     self.doorFrameLayer.contents = (id)[RWDoorAnimation clipImageFromLayer:self.doorView.layer size:self.doorView.frame.size offsetX:0 offsetY:0];
@@ -46,9 +48,10 @@ CGFloat degreeToRadian(CGFloat degree)
     
     
     self.roomLayer = [CALayer layer];
-    self.roomLayer.frame = [self doorInteriorRect];
-    self.roomLayer.backgroundColor = [UIColor redColor].CGColor;
-    self.roomLayer.contents = (id)[RWDoorAnimation clipImageFromLayer:self.roomView.layer size:[self doorInteriorRect].size offsetX:-DOOR_FRAME_WIDTH offsetY:-DOOR_FRAME_WIDTH];
+//    self.roomLayer.frame = self.view.frame;
+        self.roomLayer.frame = [self doorInteriorRect];
+    self.roomLayer.contents = (__bridge id)([self.roomImage CGImage]);
+    //self.roomLayer.contents = (id)[RWDoorAnimation clipImageFromLayer:self.roomView.layer size:[self doorInteriorRect].size offsetX:-DOOR_FRAME_WIDTH offsetY:-DOOR_FRAME_WIDTH];
     [self.view.layer addSublayer:self.roomLayer];
     
     self.doorLayer = [CALayer layer];
@@ -61,7 +64,7 @@ CGFloat degreeToRadian(CGFloat degree)
     
     self.doorLayer.contents = (id)[RWDoorAnimation clipImageFromLayer:self.doorView.layer size:self.doorLayer.frame.size offsetX:-DOOR_FRAME_WIDTH offsetY:-DOOR_FRAME_WIDTH];
     
-    self.doorLayer.zPosition = 1000;
+    self.doorLayer.zPosition = 100;
     [self.view.layer addSublayer:self.doorLayer];
     
     
@@ -69,7 +72,14 @@ CGFloat degreeToRadian(CGFloat degree)
     doorAnimation.delegate = self;
     [self.doorLayer addAnimation:doorAnimation forKey:@"doorAnimationStarted"];
     
-    [self.doorView removeFromSuperview];
+
+//    
+//    CAAnimation *roomZoomAnimation = [self zoomInAnimation];
+//    roomZoomAnimation.delegate = self;
+//    [self.roomLayer addAnimation:roomZoomAnimation forKey:@"NextViewAnimationStarted"];
+
+    
+
 }
 
 
@@ -117,6 +127,47 @@ CGFloat degreeToRadian(CGFloat degree)
     return animGroup;
 }
 
+- (CAAnimation *)zoomInRoomAnimation {
+//    CABasicAnimation * baseAnimation = [CABasicAnimation animationWithKeyPath:@"position"];
+//    
+//    baseAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+//    baseAnimation.fromValue = [NSValue valueWithCGPoint:self.roomLayer] ;
+//    baseAnimation.toValue = [NSValue valueWithCGPoint:endPoint] ;
+//    
+    CABasicAnimation * boundsAnimation = [CABasicAnimation animationWithKeyPath:@"bounds"];
+    
+    boundsAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    boundsAnimation.fromValue = [NSValue valueWithCGRect:self.roomLayer.bounds] ; boundsAnimation.toValue = [NSValue valueWithCGRect:self.view.bounds] ;
+    
+    CAAnimationGroup * group =[CAAnimationGroup animation];
+    group.removedOnCompletion=NO; group.fillMode=kCAFillModeForwards;
+    group.animations =[NSArray arrayWithObjects:boundsAnimation, nil];
+    group.duration = 0.7;
+    
+    return group;
+}
+
+- (CAAnimation *)zoomPastDoorFrameAnimation {
+    CABasicAnimation * boundsAnimation = [CABasicAnimation animationWithKeyPath:@"bounds"];
+    
+    boundsAnimation.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionLinear];
+    
+//    CGRect endBoundsRect = CGRectMake(self.view.bounds.origin.x - DOOR_FRAME_WIDTH- 50, self.view.bounds.origin.y - DOOR_FRAME_WIDTH - 25, self.view.bounds.size.width + DOOR_FRAME_WIDTH *2 + 50 ,  self.view.bounds.size.height + DOOR_FRAME_WIDTH + 25);
+    
+    CGRect endBoundsRect = CGRectMake(self.view.bounds.origin.x, self.view.bounds.origin.y, self.doorFrameLayer.bounds.size.width * 2,  self.doorFrameLayer.bounds.size.height * 2);
+    
+    boundsAnimation.fromValue = [NSValue valueWithCGRect:self.doorFrameLayer.bounds] ; boundsAnimation.toValue = [NSValue valueWithCGRect:endBoundsRect] ;
+    
+    CAAnimationGroup * group =[CAAnimationGroup animation];
+    group.removedOnCompletion=NO; group.fillMode=kCAFillModeForwards;
+    group.animations =[NSArray arrayWithObjects:boundsAnimation, nil];
+    group.duration = 0.7;
+
+    return group;
+}
+
+
+
 - (CAAnimation *)openDoorAnimationWithRotationDegree:(CGFloat)degree
 {
     CAAnimationGroup *animGroup = [CAAnimationGroup animation];
@@ -133,7 +184,7 @@ CGFloat degreeToRadian(CGFloat degree)
     
 //    animGroup.animations = [NSArray arrayWithObjects:openAnim, zoomInAnim, nil];
     animGroup.animations = [NSArray arrayWithObjects:openAnim, nil];
-    animGroup.duration = 1.5f;
+    animGroup.duration = 0.9f;
     
     return animGroup;
 }
@@ -142,9 +193,22 @@ CGFloat degreeToRadian(CGFloat degree)
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     if(flag) {
-//        if([self.doorLayer animationForKey:@"doorAnimationStarted"] == anim ||
-//           [self.doorLayer animationForKey:@"doorAnimationStarted"] == anim)
-//        {
+      //  if([self.doorLayer animationForKey:@"doorAnimationStarted"] == anim)
+        {
+            [self.doorLayer removeFromSuperlayer];
+            
+            
+            
+            CAAnimation * zoomPastDoorFrameAnimation = [self zoomPastDoorFrameAnimation];
+            [self.doorFrameLayer addAnimation:zoomPastDoorFrameAnimation forKey:@"zoomPastDoorFrame"];
+//
+            CAAnimation * zoomInRoomAnimation = [self zoomInRoomAnimation];
+            [self.roomLayer addAnimation:zoomInRoomAnimation forKey:@"zoomInRoom"];
+            
+         //   self.roomLayer.frame = self.view.frame;
+//            CAAnimation *roomZoomAnimation = [self zoomInAnimation];
+//            roomZoomAnimation.delegate = self;
+//            [self.roomLayer addAnimation:roomZoomAnimation forKey:@"NextViewAnimationStarted"];
 //            [self.doorLayerLeft removeFromSuperlayer];
 //            [self.doorLayerRight removeFromSuperlayer];
 //        }
@@ -152,6 +216,7 @@ CGFloat degreeToRadian(CGFloat degree)
 //        {
 //            [self.view addSubview:self.nextView];
 //        }
+        }
     }
 }
 

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4A72AC2F1860F19F00EDBA93 /* DoorFrame.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A72AC2E1860F19F00EDBA93 /* DoorFrame.png */; };
 		4A975D27185F84CD003546F1 /* RWDoorAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A975D26185F84CD003546F1 /* RWDoorAnimation.m */; };
 		4A975D29185F920C003546F1 /* Room4.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D28185F920C003546F1 /* Room4.png */; };
 		4A975D2B185F9E86003546F1 /* Room4@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D2A185F9E86003546F1 /* Room4@2x.png */; };
@@ -86,6 +87,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A72AC2E1860F19F00EDBA93 /* DoorFrame.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DoorFrame.png; path = images/DoorFrame.png; sourceTree = "<group>"; };
 		4A975D25185F84CD003546F1 /* RWDoorAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWDoorAnimation.h; sourceTree = "<group>"; };
 		4A975D26185F84CD003546F1 /* RWDoorAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDoorAnimation.m; sourceTree = "<group>"; };
 		4A975D28185F920C003546F1 /* Room4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Room4.png; path = images/Room4.png; sourceTree = "<group>"; };
@@ -191,6 +193,7 @@
 		4A3A1D73185B8FE1007F9420 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				4A72AC2E1860F19F00EDBA93 /* DoorFrame.png */,
 				4AB7F0DE185BA1DA003974E6 /* Door1.png */,
 				4AB7F0DF185BA1DA003974E6 /* Door2.png */,
 				4AB7F0E0185BA1DA003974E6 /* Door3.png */,
@@ -477,6 +480,7 @@
 				4AB7F10E185BA1DA003974E6 /* Door7.png in Resources */,
 				4AB7F127185BA1DA003974E6 /* Door32.png in Resources */,
 				4AB7F10C185BA1DA003974E6 /* Door5.png in Resources */,
+				4A72AC2F1860F19F00EDBA93 /* DoorFrame.png in Resources */,
 				4AB7F10D185BA1DA003974E6 /* Door6.png in Resources */,
 				4AB7F108185BA1DA003974E6 /* Door1.png in Resources */,
 				4AB7F119185BA1DA003974E6 /* Door18.png in Resources */,

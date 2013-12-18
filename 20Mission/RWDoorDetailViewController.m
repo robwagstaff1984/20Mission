@@ -131,7 +131,7 @@
         NSLog(@"Knocked");
         [self setupRoomImageView];
         RWDoorAnimation *doorAnimation = [[RWDoorAnimation alloc] initWithBaseView:self.view doorView:self.doorDetailImageView roomView:self.roomImage];
-        [doorAnimation performOpenDoorAnimation];
+        [doorAnimation performOpenDoorAndEnterRoomAnimation];
     }
 }
 

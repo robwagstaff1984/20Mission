@@ -10,12 +10,7 @@
 
 @interface RWDoorAnimation : NSObject
 
-@property (nonatomic, assign) UIView *view;
-@property (nonatomic, assign) UIView *doorView;
-@property (nonatomic, assign) UIImage *roomImage;
-
 - (id)initWithBaseView:(UIView *)baseView doorView:(UIView *)doorView roomView:(UIImage*)roomImage;
-- (void) performOpenDoorAnimation;
-+ (CGImageRef)clipImageFromLayer:(CALayer *)layer size:(CGSize)size offsetX:(CGFloat)offsetX offsetY:(CGFloat)offsetY;
+- (void) performOpenDoorAndEnterRoomAnimation;
 
 @end

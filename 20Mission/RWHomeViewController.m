@@ -81,7 +81,7 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    return UIEdgeInsetsMake(SPACING, SPACING, SPACING, SPACING);
+    return UIEdgeInsetsMake(20 + SPACING, SPACING, SPACING, SPACING);
 }
 
 #pragma mark UICollectionViewDelegate 
@@ -94,14 +94,14 @@ static NSString *const CellIdentifier = @"CellIdentifier";
     UIImageView* transitionImageScreenshot = [self.view screenshotImageViewWithCroppingRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];
     [doorDetailViewController setTransitionImageView:transitionImageScreenshot];
     
-    [doorDetailViewController setTitle:[NSString stringWithFormat:@"Door %d", indexPath.row + 1]];
-    [self.navigationController pushViewController:doorDetailViewController animated:NO];
+    [doorDetailViewController setTitle:[NSString stringWithFormat:@"Door %ld", indexPath.row + 1]];
+    [self presentViewController:doorDetailViewController animated:NO completion:nil];
     
 }
 
 -(CGRect) calculateRectRelativeToCollectionViewForCell:(UICollectionViewCell*)cell {
     CGRect convertedRect = [self.doorsCollectionView convertRect:cell.frame toView:self.view];
-    convertedRect = CGRectMake(convertedRect.origin.x, convertedRect.origin.y - NAV_BAR_AND_STATUS_BAR_HEIGHT, convertedRect.size.width, convertedRect.size.height);
+    convertedRect = CGRectMake(convertedRect.origin.x, convertedRect.origin.y - NAV_BAR_HEIGHT, convertedRect.size.width, convertedRect.size.height);
     return convertedRect;
 }
 

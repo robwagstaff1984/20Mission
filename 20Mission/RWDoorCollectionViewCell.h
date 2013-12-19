@@ -10,7 +10,7 @@
 
 @interface RWDoorCollectionViewCell : UICollectionViewCell
 
--(void) setImageForDoorNumber:(int)doorNumber;
+-(void) setImageForDoorNumber:(NSInteger)doorNumber;
 -(UIImage*) getCurrentImage;
     
 @end

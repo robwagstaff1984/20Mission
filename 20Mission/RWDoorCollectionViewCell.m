@@ -16,13 +16,13 @@
 @implementation RWDoorCollectionViewCell
 
 #pragma mark public methods
--(void) setImageForDoorNumber:(int)doorNumber {
+-(void) setImageForDoorNumber:(NSInteger)doorNumber {
     
     if(!_doorImageView) {
         _doorImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         [self addSubview:_doorImageView];
     }
-    NSString* imageName = [NSString stringWithFormat:@"Door%d.png", doorNumber];
+    NSString* imageName = [NSString stringWithFormat:@"Door%ld.png", doorNumber ];
     UIImage *doorImage = [UIImage imageNamed:imageName];
     
     [_doorImageView setImage:doorImage];

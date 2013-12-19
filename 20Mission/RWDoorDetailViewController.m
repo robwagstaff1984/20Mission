@@ -71,15 +71,15 @@
 
 #pragma mark helper methods
 -(CGRect) fullSizeDoorRect {
-    float fullSizeDoorHeight = self.view.frame.size.height - NAV_BAR_AND_STATUS_BAR_HEIGHT - FULL_SIZE_DOOR_TOP_MARGIN - FULL_SIZE_DOOR_BOTTOM_MARGIN;
+    float fullSizeDoorHeight = self.view.frame.size.height - NAV_BAR_HEIGHT - FULL_SIZE_DOOR_TOP_MARGIN - FULL_SIZE_DOOR_BOTTOM_MARGIN;
     float fullSizeDoorWidth = floor(fullSizeDoorHeight / DoorHeightToWidthRatio);
-    return CGRectMake((self.view.frame.size.width - fullSizeDoorWidth) / 2, NAV_BAR_AND_STATUS_BAR_HEIGHT + FULL_SIZE_DOOR_TOP_MARGIN, fullSizeDoorWidth, fullSizeDoorHeight);
+    return CGRectMake((self.view.frame.size.width - fullSizeDoorWidth) / 2, NAV_BAR_HEIGHT + FULL_SIZE_DOOR_TOP_MARGIN, fullSizeDoorWidth, fullSizeDoorHeight);
 }
 
 #pragma mark lazy loaders
 -(void) setDoorDetailImage:(UIImage*)image withInitialRect:(CGRect)initialRect {
     [self.doorDetailImageView setImage:image];
-    self.initialDoorImageRect = CGRectMake(initialRect.origin.x, initialRect.origin.y + NAV_BAR_AND_STATUS_BAR_HEIGHT, initialRect.size.width, initialRect.size.height);
+    self.initialDoorImageRect = CGRectMake(initialRect.origin.x, initialRect.origin.y + NAV_BAR_HEIGHT, initialRect.size.width, initialRect.size.height);
     [self.doorDetailImageView setFrame:self.initialDoorImageRect];
     [self.hideSelectedDoorFromTransitionView setFrame:self.initialDoorImageRect];
 }

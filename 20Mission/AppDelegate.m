@@ -16,9 +16,8 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     RWHomeViewController *homeViewController = [[RWHomeViewController alloc] init];
-    UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     
-    self.window.rootViewController = navigationController;
+    self.window.rootViewController = homeViewController;
     [self.window makeKeyAndVisible];
     
     return YES;

@@ -109,10 +109,10 @@
 
 #pragma mark - Door Frame and Room View animation
 -(void) animateWalkingIntoRoom {
-    float scaledDoorFrameWidth = ceilf((self.baseView.bounds.size.width / self.doorFrameImageView.frame.size.width) * DOOR_FRAME_WIDTH);
+    float scaledDoorFrameWidth = ceilf(((self.baseView.frame.size.width + DOOR_FRAME_WIDTH + DOOR_FRAME_WIDTH) / self.doorFrameImageView.frame.size.width) * DOOR_FRAME_WIDTH) + 1;
     
     [UIView animateWithDuration:ENTER_ROOM_ANIMATION_TIME animations:^(void) {
-        self.doorFrameImageView.frame = CGRectMake(self.baseView.frame.origin.x - scaledDoorFrameWidth, self.baseView.frame.origin.y, self.baseView.frame.size.width + (2 * scaledDoorFrameWidth), self.baseView.frame.size.height);
+        self.doorFrameImageView.frame = CGRectMake(self.baseView.frame.origin.x - scaledDoorFrameWidth, self.baseView.frame.origin.y - scaledDoorFrameWidth, self.baseView.frame.size.width + (2 * scaledDoorFrameWidth), self.baseView.frame.size.height + scaledDoorFrameWidth);
         self.roomClippingView.frame = self.baseView.bounds;
         self.roomImageView.frame = self.baseView.bounds;
         self.roomImageView.transform = CGAffineTransformScale(self.roomImageView.transform, ENTER_ROOM_ZOOM_SCALE, ENTER_ROOM_ZOOM_SCALE);

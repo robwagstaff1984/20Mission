@@ -9,7 +9,7 @@
 #import "RWDoorAnimation.h"
 
 #define DOOR_FRAME_WIDTH 15
-#define DOOR_OPEN_ANIMATION_TIME 0.9
+#define DOOR_OPEN_ANIMATION_TIME 0.8
 #define ENTER_ROOM_ANIMATION_TIME 1.1
 #define ENTER_ROOM_ZOOM_SCALE 1.2
 
@@ -91,6 +91,7 @@
     CABasicAnimation *openAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
     openAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
     openAnim.fromValue = [NSNumber numberWithFloat:[self degreeToRadian:(0.0f)]];
+    self.doorLayer.transform = CATransform3DRotate(self.doorLayer.transform, [self degreeToRadian:90.0f], 0.0, 1.0, 0.0);
     openAnim.toValue = [NSNumber numberWithFloat:[self degreeToRadian:(degree)]];
     openAnim.duration = DOOR_OPEN_ANIMATION_TIME;
     

@@ -73,6 +73,7 @@
 		4AB7F134185BB66F003974E6 /* RWDoorDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB7F133185BB66F003974E6 /* RWDoorDetailViewController.m */; };
 		4AB7F13B185BDA9B003974E6 /* UIView+screenGrab.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB7F13A185BDA9B003974E6 /* UIView+screenGrab.m */; };
 		4AFB4EEF185B8BA6009447EF /* RWDoorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4EEE185B8BA6009447EF /* RWDoorCollectionViewCell.m */; };
+		819E10EE18639B8200E5D42D /* RWRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 819E10ED18639B8200E5D42D /* RWRoomViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -161,6 +162,8 @@
 		4AB7F13A185BDA9B003974E6 /* UIView+screenGrab.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+screenGrab.m"; sourceTree = "<group>"; };
 		4AFB4EED185B8BA6009447EF /* RWDoorCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWDoorCollectionViewCell.h; sourceTree = "<group>"; };
 		4AFB4EEE185B8BA6009447EF /* RWDoorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDoorCollectionViewCell.m; sourceTree = "<group>"; };
+		819E10EC18639B8200E5D42D /* RWRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWRoomViewController.h; sourceTree = "<group>"; };
+		819E10ED18639B8200E5D42D /* RWRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWRoomViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +193,6 @@
 		4A3A1D73185B8FE1007F9420 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				4AB64E2E185B767A00D64442 /* Supporting Files */,
 				4A72AC2E1860F19F00EDBA93 /* DoorFrame.png */,
 				4AB7F0DE185BA1DA003974E6 /* Door1.png */,
 				4AB7F0DF185BA1DA003974E6 /* Door2.png */,
@@ -277,6 +279,7 @@
 		4AB64E2D185B767A00D64442 /* 20Mission */ = {
 			isa = PBXGroup;
 			children = (
+				4AB64E2E185B767A00D64442 /* Supporting Files */,
 				4AB7F138185BDA3C003974E6 /* Categories */,
 				4AB64E57185B76DA00D64442 /* Model */,
 				4AB64E56185B76CE00D64442 /* View */,
@@ -350,6 +353,8 @@
 				4AB64E5C185B794300D64442 /* RWHomeViewController.m */,
 				4AB7F132185BB66F003974E6 /* RWDoorDetailViewController.h */,
 				4AB7F133185BB66F003974E6 /* RWDoorDetailViewController.m */,
+				819E10EC18639B8200E5D42D /* RWRoomViewController.h */,
+				819E10ED18639B8200E5D42D /* RWRoomViewController.m */,
 				4AB64E36185B767A00D64442 /* AppDelegate.h */,
 				4AB64E37185B767A00D64442 /* AppDelegate.m */,
 			);
@@ -506,6 +511,7 @@
 				4AB64E34185B767A00D64442 /* main.m in Sources */,
 				4AFB4EEF185B8BA6009447EF /* RWDoorCollectionViewCell.m in Sources */,
 				4AB64E5D185B794300D64442 /* RWHomeViewController.m in Sources */,
+				819E10EE18639B8200E5D42D /* RWRoomViewController.m in Sources */,
 				4AB7F134185BB66F003974E6 /* RWDoorDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

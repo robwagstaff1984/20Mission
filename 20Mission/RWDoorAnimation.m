@@ -11,7 +11,7 @@
 #define DOOR_FRAME_WIDTH 15
 #define DOOR_OPEN_ANIMATION_TIME 0.8
 #define ENTER_ROOM_ANIMATION_TIME 1.1
-#define ENTER_ROOM_ZOOM_SCALE 1.2
+#define ENTER_ROOM_ZOOMED_OUT_SCALE 0.8
 
 @interface RWDoorAnimation()
 
@@ -56,6 +56,8 @@
     self.roomImageView = [[UIImageView alloc] initWithImage:self.roomImage];
     self.roomImageView.frame = self.baseView.bounds;
     self.roomImageView.frame = CGRectMake(self.baseView.bounds.origin.x - self.roomClippingView.frame.origin.x, self.baseView.bounds.origin.y - self.roomClippingView.frame.origin.y, self.baseView.bounds.size.width, self.baseView.bounds.size.height);
+    self.roomImageView.transform = CGAffineTransformScale(self.roomImageView.transform, ENTER_ROOM_ZOOMED_OUT_SCALE, ENTER_ROOM_ZOOMED_OUT_SCALE);
+    
     [self.roomClippingView addSubview:self.roomImageView];
     [self.baseView addSubview:self.roomClippingView];
 }
@@ -115,7 +117,7 @@
         self.doorFrameImageView.frame = CGRectMake(self.baseView.frame.origin.x - scaledDoorFrameWidth, self.baseView.frame.origin.y - scaledDoorFrameWidth, self.baseView.frame.size.width + (2 * scaledDoorFrameWidth), self.baseView.frame.size.height + scaledDoorFrameWidth);
         self.roomClippingView.frame = self.baseView.bounds;
         self.roomImageView.frame = self.baseView.bounds;
-        self.roomImageView.transform = CGAffineTransformScale(self.roomImageView.transform, ENTER_ROOM_ZOOM_SCALE, ENTER_ROOM_ZOOM_SCALE);
+        self.roomImageView.transform = CGAffineTransformScale(self.roomImageView.transform, 1.0, 1.0);
     } completion:^(BOOL finished) {
         self.completion();
     }];

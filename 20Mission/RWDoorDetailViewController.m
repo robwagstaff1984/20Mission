@@ -10,6 +10,7 @@
 #import "RWHomeViewController.h"
 #import "AppDelegate.h"
 #import "RWDoorAnimation.h"
+#import "RWRoomViewController.h"
 
 #define DOOR_ZOOM_ANIMATION_TIME 0.5
 #define DOOR_DASHBOARD_ANIMATION_TIME 0.4 
@@ -23,17 +24,18 @@
 @property (nonatomic, strong) UIImage* roomImage;
 @property (nonatomic, strong) UIView* hideSelectedDoorFromTransitionView;
 @property (nonatomic, strong) UIView* doorDashboardView;
-@property (nonatomic, strong) UIView* housemateDetailsView;
+@property (nonatomic, assign) int roomNumber;
 @end
 
 @implementation RWDoorDetailViewController
 
 #pragma mark view cycle
 
-- (id)init
+- (id)initWithRoomNumber:(int)roomNumber
 {
     self = [super init];
     if (self) {
+        self.roomNumber = roomNumber;
         [self setupHideSelectedDoorFromTransitionView];
         [self setupDoorDashboardView];
         [self setupDoorDetailImageView];
@@ -56,13 +58,6 @@
     }];
 }
 
-
-#pragma mark custom navigation back behaviour
--(void) shouldZoomOutOnPopNavigationItem {
-    
-
-}
-
 #pragma mark helper methods
 -(CGRect) fullSizeDoorRect {
     float fullSizeDoorHeight = self.view.frame.size.height - NAV_BAR_HEIGHT - FULL_SIZE_DOOR_TOP_MARGIN - FULL_SIZE_DOOR_BOTTOM_MARGIN;
@@ -83,7 +78,6 @@
 -(void) setupDoorDetailImageView {
     self.doorDetailImageView =[[UIImageView alloc] init];
     self.doorDetailImageView.userInteractionEnabled = YES;
-    
     [self.view addSubview:self.doorDetailImageView];
 }
 
@@ -123,7 +117,8 @@
         [self setupRoomImageView];
         RWDoorAnimation *doorAnimation = [[RWDoorAnimation alloc] initWithBaseView:self.view doorView:self.doorDetailImageView roomView:self.roomImage];
         [doorAnimation performEnterRoomAnimationWithCompletion:^{
-            [self showHousemateDetails];
+            RWRoomViewController* roomViewController = [[RWRoomViewController alloc] initWithRoomNumber:self.roomNumber];
+            [self presentViewController:roomViewController animated:NO completion:nil];
         }];
     }
 }
@@ -137,29 +132,4 @@
          }];
      }
 }
-
--(void) showHousemateDetails {
-    
-    self.housemateDetailsView = [[UIView alloc] initWithFrame:self.view.bounds];
-    self.housemateDetailsView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    self.housemateDetailsView.alpha = 0;
-    [self.view addSubview:self.housemateDetailsView];
-    
-    NSArray* housemateInfoDictionary = @[@"Robert Wagstaff's Room", @"Mood: Socialable", @"www.facebook.com/robertwagstaff", @"Housemate since: 10/22/14", @"Leaving: 10/22/15"];
-    
-    for(int labelNumber = 0; labelNumber < [housemateInfoDictionary count]; labelNumber++) {
-        
-        UILabel* housemateNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.bounds.size.width / 4) + labelNumber * 50, self.view.bounds.size.width, 50)];
-        housemateNameLabel.text = housemateInfoDictionary[labelNumber];
-        housemateNameLabel.textAlignment = NSTextAlignmentCenter;
-        housemateNameLabel.textColor = [UIColor whiteColor];
-        housemateNameLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        [self.housemateDetailsView addSubview:housemateNameLabel];
-    }
-
-    [UIView animateWithDuration:0.4 animations:^{
-        self.housemateDetailsView.alpha = 1;
-    }];
-}
-
 @end

@@ -86,9 +86,9 @@ static NSString *const CellIdentifier = @"CellIdentifier";
 
 #pragma mark UICollectionViewDelegate 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     RWDoorCollectionViewCell *cell = (RWDoorCollectionViewCell*)[self.doorsCollectionView cellForItemAtIndexPath:indexPath];
-    RWDoorDetailViewController *doorDetailViewController = [[RWDoorDetailViewController alloc] init];
+    RWDoorDetailViewController *doorDetailViewController = [[RWDoorDetailViewController alloc] initWithRoomNumber:indexPath.row + 1.0];
     [doorDetailViewController setDoorDetailImage:cell.getCurrentImage withInitialRect:[self calculateRectRelativeToCollectionViewForCell:cell]];
 
     UIImageView* transitionImageScreenshot = [self.view screenshotImageViewWithCroppingRect:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height)];

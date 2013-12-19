@@ -60,13 +60,7 @@
 #pragma mark custom navigation back behaviour
 -(void) shouldZoomOutOnPopNavigationItem {
     
-    [UIView animateWithDuration:DOOR_ZOOM_ANIMATION_TIME animations:^{
-        self.doorDetailImageView.frame = self.initialDoorImageRect;
-    } completion:^(BOOL finished) {
-        AppDelegate *delegate = [[UIApplication sharedApplication] delegate];
-        UINavigationController* rootNavigationController = (UINavigationController*) delegate.window.rootViewController;
-        [rootNavigationController popViewControllerAnimated:NO];
-    }];
+
 }
 
 #pragma mark helper methods
@@ -104,6 +98,7 @@
     self.doorDashboardView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.75];
     [self.view addSubview:self.doorDashboardView];
     self.doorDashboardView.alpha = 0;
+    [self.doorDashboardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomOutToHomeViewController:)]];
 }
 
 -(void)setTransitionImageView:(UIImageView*)transitionImageView {
@@ -131,6 +126,16 @@
             [self showHousemateDetails];
         }];
     }
+}
+
+- (void) zoomOutToHomeViewController:(UITapGestureRecognizer *)sender {
+     if (sender.state == UIGestureRecognizerStateRecognized) {
+         [UIView animateWithDuration:DOOR_ZOOM_ANIMATION_TIME animations:^{
+             self.doorDetailImageView.frame = self.initialDoorImageRect;
+         } completion:^(BOOL finished) {
+             [self dismissViewControllerAnimated:NO completion:nil];
+         }];
+     }
 }
 
 -(void) showHousemateDetails {

@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UIImageView *roomImageView;
 @property (nonatomic, strong) UIImageView *doorFrameImageView;
 @property (nonatomic, strong) UIView* roomClippingView;
+@property (nonatomic, strong) completionBlock completion;
 @end
 
 @implementation RWDoorAnimation
@@ -38,8 +39,9 @@
     return self;
 }
 #pragma mark - public methods
--(void) performOpenDoorAndEnterRoomAnimation {
+- (void) performEnterRoomAnimationWithCompletion:(completionBlock)completion {
     [self.doorView removeFromSuperview];
+    self.completion = completion;
     
     [self addClippedViewOfRoom];
     [self addDoorFrame];
@@ -113,6 +115,8 @@
         self.roomClippingView.frame = self.baseView.bounds;
         self.roomImageView.frame = self.baseView.bounds;
         self.roomImageView.transform = CGAffineTransformScale(self.roomImageView.transform, ENTER_ROOM_ZOOM_SCALE, ENTER_ROOM_ZOOM_SCALE);
+    } completion:^(BOOL finished) {
+        self.completion();
     }];
 }
 

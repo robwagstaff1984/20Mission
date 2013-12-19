@@ -23,6 +23,7 @@
 @property (nonatomic, strong) UIImage* roomImage;
 @property (nonatomic, strong) UIView* hideSelectedDoorFromTransitionView;
 @property (nonatomic, strong) UIView* doorDashboardView;
+@property (nonatomic, strong) UIView* housemateDetailsView;
 @end
 
 @implementation RWDoorDetailViewController
@@ -110,10 +111,6 @@
 }
 
 -(void) setupRoomImageView {
-  //  self.roomImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
-
-//        self.roomImageView.contentMode = UIViewContentModeCenter;
-    //[self.roomImageView setImage:[UIImage imageNamed:@"Room4.png"]];
     self.roomImage = [UIImage imageNamed:@"Room4.png"];
 }
 
@@ -128,11 +125,36 @@
 
 - (void)handleDoubleTapGesture:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
-        NSLog(@"Knocked");
         [self setupRoomImageView];
         RWDoorAnimation *doorAnimation = [[RWDoorAnimation alloc] initWithBaseView:self.view doorView:self.doorDetailImageView roomView:self.roomImage];
-        [doorAnimation performOpenDoorAndEnterRoomAnimation];
+        [doorAnimation performEnterRoomAnimationWithCompletion:^{
+            [self showHousemateDetails];
+        }];
     }
+}
+
+-(void) showHousemateDetails {
+    
+    self.housemateDetailsView = [[UIView alloc] initWithFrame:self.view.bounds];
+    self.housemateDetailsView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    self.housemateDetailsView.alpha = 0;
+    [self.view addSubview:self.housemateDetailsView];
+    
+    NSArray* housemateInfoDictionary = @[@"Robert Wagstaff's Room", @"Mood: Socialable", @"www.facebook.com/robertwagstaff", @"Housemate since: 10/22/14", @"Leaving: 10/22/15"];
+    
+    for(int labelNumber = 0; labelNumber < [housemateInfoDictionary count]; labelNumber++) {
+        
+        UILabel* housemateNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.bounds.size.width / 4) + labelNumber * 50, self.view.bounds.size.width, 50)];
+        housemateNameLabel.text = housemateInfoDictionary[labelNumber];
+        housemateNameLabel.textAlignment = NSTextAlignmentCenter;
+        housemateNameLabel.textColor = [UIColor whiteColor];
+        housemateNameLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        [self.housemateDetailsView addSubview:housemateNameLabel];
+    }
+
+    [UIView animateWithDuration:0.4 animations:^{
+        self.housemateDetailsView.alpha = 1;
+    }];
 }
 
 @end

@@ -8,9 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void(^completionBlock)(void);
+
 @interface RWDoorAnimation : NSObject
 
 - (id)initWithBaseView:(UIView *)baseView doorView:(UIView *)doorView roomView:(UIImage*)roomImage;
-- (void) performOpenDoorAndEnterRoomAnimation;
+- (void) performEnterRoomAnimationWithCompletion:(completionBlock)completion;
 
 @end

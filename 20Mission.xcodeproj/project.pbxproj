@@ -74,6 +74,8 @@
 		4AB7F13B185BDA9B003974E6 /* UIView+screenGrab.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AB7F13A185BDA9B003974E6 /* UIView+screenGrab.m */; };
 		4AFB4EEF185B8BA6009447EF /* RWDoorCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4AFB4EEE185B8BA6009447EF /* RWDoorCollectionViewCell.m */; };
 		819E10EE18639B8200E5D42D /* RWRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 819E10ED18639B8200E5D42D /* RWRoomViewController.m */; };
+		819E10F11863A07100E5D42D /* RWRoom.m in Sources */ = {isa = PBXBuildFile; fileRef = 819E10F01863A07100E5D42D /* RWRoom.m */; };
+		819E10F41866261B00E5D42D /* RWRoomDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 819E10F31866261B00E5D42D /* RWRoomDataManager.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -164,6 +166,10 @@
 		4AFB4EEE185B8BA6009447EF /* RWDoorCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWDoorCollectionViewCell.m; sourceTree = "<group>"; };
 		819E10EC18639B8200E5D42D /* RWRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWRoomViewController.h; sourceTree = "<group>"; };
 		819E10ED18639B8200E5D42D /* RWRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWRoomViewController.m; sourceTree = "<group>"; };
+		819E10EF1863A07100E5D42D /* RWRoom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWRoom.h; sourceTree = "<group>"; };
+		819E10F01863A07100E5D42D /* RWRoom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWRoom.m; sourceTree = "<group>"; };
+		819E10F21866261B00E5D42D /* RWRoomDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RWRoomDataManager.h; sourceTree = "<group>"; };
+		819E10F31866261B00E5D42D /* RWRoomDataManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RWRoomDataManager.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +339,10 @@
 		4AB64E57185B76DA00D64442 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				819E10EF1863A07100E5D42D /* RWRoom.h */,
+				819E10F01863A07100E5D42D /* RWRoom.m */,
+				819E10F21866261B00E5D42D /* RWRoomDataManager.h */,
+				819E10F31866261B00E5D42D /* RWRoomDataManager.m */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -510,8 +520,10 @@
 				4AB7F13B185BDA9B003974E6 /* UIView+screenGrab.m in Sources */,
 				4AB64E34185B767A00D64442 /* main.m in Sources */,
 				4AFB4EEF185B8BA6009447EF /* RWDoorCollectionViewCell.m in Sources */,
+				819E10F41866261B00E5D42D /* RWRoomDataManager.m in Sources */,
 				4AB64E5D185B794300D64442 /* RWHomeViewController.m in Sources */,
 				819E10EE18639B8200E5D42D /* RWRoomViewController.m in Sources */,
+				819E10F11863A07100E5D42D /* RWRoom.m in Sources */,
 				4AB7F134185BB66F003974E6 /* RWDoorDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

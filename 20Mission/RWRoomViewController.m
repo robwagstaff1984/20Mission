@@ -7,6 +7,7 @@
 //
 
 #import "RWRoomViewController.h"
+#import "RWRoomDataManager.h"
 
 @interface RWRoomViewController ()
 @property (nonatomic, strong) UIView* housemateDetailsView;
@@ -46,16 +47,26 @@
     self.housemateDetailsView.alpha = 0;
     [self.view addSubview:self.housemateDetailsView];
     
-    NSArray* housemateInfo = [self retrieveHousemateInfo];
+    NSDictionary* roomProperties = [self retrieveHousemateInfo];
+    NSArray* roomPropertyKeys = [roomProperties allKeys];
     
-    for(int labelNumber = 0; labelNumber < [housemateInfo count]; labelNumber++) {
+    
+    for(int labelNumber = 0; labelNumber < [roomPropertyKeys count]; labelNumber++) {
         
-        UILabel* housemateNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.bounds.size.width / 4) + labelNumber * 50, self.view.bounds.size.width, 50)];
-        housemateNameLabel.text = housemateInfo[labelNumber];
-        housemateNameLabel.textAlignment = NSTextAlignmentCenter;
-        housemateNameLabel.textColor = [UIColor whiteColor];
-        housemateNameLabel.font = [UIFont boldSystemFontOfSize:16.0];
-        [self.housemateDetailsView addSubview:housemateNameLabel];
+        UILabel* roomPropertyNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, (self.view.bounds.size.width / 4) + labelNumber * 50, self.view.bounds.size.width * .45, 50)];
+        roomPropertyNameLabel.text = roomPropertyKeys[labelNumber];
+        roomPropertyNameLabel.textAlignment = NSTextAlignmentRight;
+        roomPropertyNameLabel.textColor = [UIColor whiteColor];
+        roomPropertyNameLabel.font = [UIFont boldSystemFontOfSize:16.0];
+        
+        UITextField* roomPropertyValueText = [[UITextField alloc] initWithFrame:CGRectMake((self.view.bounds.size.width /2), (self.view.bounds.size.width / 4) + labelNumber * 50, self.view.bounds.size.width /2, 50)];
+        roomPropertyValueText.text = roomProperties[roomPropertyKeys[labelNumber]];
+        roomPropertyValueText.textAlignment = NSTextAlignmentLeft;
+        roomPropertyValueText.textColor = [UIColor whiteColor];
+        roomPropertyValueText.font = [UIFont boldSystemFontOfSize:16.0];
+        
+        [self.housemateDetailsView addSubview:roomPropertyNameLabel];
+        [self.housemateDetailsView addSubview:roomPropertyValueText];
     }
     
     [UIView animateWithDuration:0.4 animations:^{
@@ -65,8 +76,10 @@
 
 #pragma mark - Room Data source 
 
--(NSArray*) retrieveHousemateInfo {
-    return @[@"Robert Wagstaff's Room", @"Mood: Socialable", @"www.facebook.com/robertwagstaff", @"Housemate since: 10/22/14", @"Leaving: 10/22/15"];
+-(NSDictionary*) retrieveHousemateInfo {
+    
+   RWRoom* currentRoom = [[RWRoomDataManager sharedManager] roomAtDoorNumber:self.roomNumber];
+    return currentRoom.roomProperties;
 }
 
 @end

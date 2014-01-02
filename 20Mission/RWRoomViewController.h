@@ -8,8 +8,17 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol RWDoorExitAnimationDelegate;
+
 @interface RWRoomViewController : UIViewController
 
+@property (nonatomic, weak) id<RWDoorExitAnimationDelegate> delegate;
 - (id)initWithRoomNumber:(int)roomNumber;
-
 @end
+
+@protocol RWDoorExitAnimationDelegate <NSObject>
+@required
+- (void)didExitRoom;
+@end
+

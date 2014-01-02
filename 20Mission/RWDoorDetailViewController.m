@@ -118,6 +118,7 @@
         RWDoorAnimation *doorAnimation = [[RWDoorAnimation alloc] initWithBaseView:self.view doorView:self.doorDetailImageView roomView:self.roomImage];
         [doorAnimation performEnterRoomAnimationWithCompletion:^{
             RWRoomViewController* roomViewController = [[RWRoomViewController alloc] initWithRoomNumber:self.roomNumber];
+            roomViewController.delegate = doorAnimation;
             [self presentViewController:roomViewController animated:NO completion:nil];
         }];
     }

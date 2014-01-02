@@ -12,6 +12,7 @@
 #define DOOR_OPEN_ANIMATION_TIME 0.8
 #define ENTER_ROOM_ANIMATION_TIME 1.1
 #define ENTER_ROOM_ZOOMED_OUT_SCALE 0.8
+#define ZOOMED_OUT_ROOM_Y_OFFSET 32
 
 @interface RWDoorAnimation()
 
@@ -24,6 +25,7 @@
 @property (nonatomic, strong) UIImageView *doorFrameImageView;
 @property (nonatomic, strong) UIView* roomClippingView;
 @property (nonatomic, strong) completionBlock completion;
+
 @end
 
 @implementation RWDoorAnimation
@@ -49,13 +51,22 @@
     [self animateDoorOpening];
 }
 
+- (void)didExitRoom {
+    [self performExitRoomAnimation];
+}
+
+- (void) performExitRoomAnimation {
+    [self animateWalkingOutOfRoom];
+}
+
 #pragma mark - view creation helpers
 -(void) addClippedViewOfRoom {
     self.roomClippingView = [[UIView alloc] initWithFrame: [self doorInteriorRect]];
+    self.roomClippingView.backgroundColor = [UIColor redColor];
     self.roomClippingView.clipsToBounds = YES;
+
     self.roomImageView = [[UIImageView alloc] initWithImage:self.roomImage];
-    self.roomImageView.frame = self.baseView.bounds;
-    self.roomImageView.frame = CGRectMake(self.baseView.bounds.origin.x - self.roomClippingView.frame.origin.x, self.baseView.bounds.origin.y - self.roomClippingView.frame.origin.y, self.baseView.bounds.size.width, self.baseView.bounds.size.height);
+    self.roomImageView.frame = [self roomImageBeforeEnteringRoomRect];
     self.roomImageView.transform = CGAffineTransformScale(self.roomImageView.transform, ENTER_ROOM_ZOOMED_OUT_SCALE, ENTER_ROOM_ZOOMED_OUT_SCALE);
     
     [self.roomClippingView addSubview:self.roomImageView];
@@ -83,9 +94,17 @@
 
 #pragma mark - Door Layer Animation
 -(void) animateDoorOpening {
-    CAAnimation *doorAnimation = [self openDoorAnimationWithRotationDegree:90.0f];
-    doorAnimation.delegate = self;
-    [self.doorLayer addAnimation:doorAnimation forKey:@"doorAnimationStarted"];
+    CAAnimation *doorOpeningAnimation = [self openDoorAnimationWithRotationDegree:90.0f];
+    doorOpeningAnimation.delegate = self;
+    doorOpeningAnimation.removedOnCompletion = NO;
+    [self.doorLayer addAnimation:doorOpeningAnimation forKey:@"doorOpeningAnimation"];
+}
+
+-(void) animateDoorClosing {
+    CAAnimation *doorClosingAnimation = [self closeDoorAnimationWithRotationDegree:90.0f];
+    doorClosingAnimation.delegate = self;
+    doorClosingAnimation.removedOnCompletion = NO;
+    [self.doorLayer addAnimation:doorClosingAnimation forKey:@"doorClosingAnimation"];
 }
 
 - (CAAnimation *)openDoorAnimationWithRotationDegree:(CGFloat)degree
@@ -100,12 +119,28 @@
     return openAnim;
 }
 
+- (CAAnimation *)closeDoorAnimationWithRotationDegree:(CGFloat)degree
+{
+    CABasicAnimation *openAnim = [CABasicAnimation animationWithKeyPath:@"transform.rotation.y"];
+    openAnim.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseIn];
+    openAnim.fromValue = [NSNumber numberWithFloat:[self degreeToRadian:(degree)]];
+    self.doorLayer.transform = CATransform3DRotate(self.doorLayer.transform, [self degreeToRadian:0.0f], 0.0, 1.0, 0.0);
+    openAnim.toValue = [NSNumber numberWithFloat:[self degreeToRadian:(0.0)]];
+    openAnim.duration = DOOR_OPEN_ANIMATION_TIME;
+    
+    return openAnim;
+}
+
 #pragma mark - CAAnimationDelegate
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag
 {
     if(flag) {
-        [self.doorLayer removeFromSuperlayer];
-        [self animateWalkingIntoRoom];
+        if (anim == [self.doorLayer animationForKey:@"doorOpeningAnimation"]) {
+            [self.doorLayer removeFromSuperlayer];
+            [self animateWalkingIntoRoom];
+        } else if (anim == [self.doorLayer animationForKey:@"doorClosingAnimation"]) {
+            
+        }
     }
 }
 
@@ -120,6 +155,20 @@
         self.roomImageView.transform = CGAffineTransformScale(self.roomImageView.transform, 1.0, 1.0);
     } completion:^(BOOL finished) {
         self.completion();
+    }];
+}
+
+-(void) animateWalkingOutOfRoom {
+    
+    [UIView animateWithDuration:ENTER_ROOM_ANIMATION_TIME animations:^(void) {
+        self.doorFrameImageView.frame = self.doorView.frame;
+        self.roomClippingView.frame = [self doorInteriorRect];
+        self.roomImageView.frame = [self roomImageBeforeEnteringRoomRect];
+        self.roomImageView.transform = CGAffineTransformScale(self.roomImageView.transform, ENTER_ROOM_ZOOMED_OUT_SCALE, ENTER_ROOM_ZOOMED_OUT_SCALE);
+    } completion:^(BOOL finished) {
+        [self addDoor];
+        [self animateDoorClosing];
+
     }];
 }
 
@@ -140,9 +189,12 @@
     return CGRectMake(self.doorView.frame.origin.x + DOOR_FRAME_WIDTH, self.doorView.frame.origin.y + DOOR_FRAME_WIDTH, self.doorView.frame.size.width - 2 * DOOR_FRAME_WIDTH, self.doorView.frame.size.height - DOOR_FRAME_WIDTH);
 }
 
+-(CGRect) roomImageBeforeEnteringRoomRect {
+    return CGRectMake(self.baseView.bounds.origin.x - self.roomClippingView.frame.origin.x, self.baseView.bounds.origin.y - self.roomClippingView.frame.origin.y + ZOOMED_OUT_ROOM_Y_OFFSET, self.baseView.bounds.size.width, self.baseView.bounds.size.height);
+}
+
 -(CGFloat) degreeToRadian:(CGFloat) degree {
     return degree * M_PI / 180.0f;
 }
-
 
 @end

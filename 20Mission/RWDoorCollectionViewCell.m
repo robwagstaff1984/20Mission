@@ -22,7 +22,7 @@
         _doorImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         [self addSubview:_doorImageView];
     }
-    NSString* imageName = [NSString stringWithFormat:@"Door%ld.png", doorNumber ];
+    NSString* imageName = [NSString stringWithFormat:@"Door%d.png", doorNumber ];
     UIImage *doorImage = [UIImage imageNamed:imageName];
     
     [_doorImageView setImage:doorImage];

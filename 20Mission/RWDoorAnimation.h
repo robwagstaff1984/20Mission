@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "RWRoomViewController.h"
 
 typedef void(^completionBlock)(void);
 
-@interface RWDoorAnimation : NSObject
+@interface RWDoorAnimation : NSObject <RWDoorExitAnimationDelegate>
 
 - (id)initWithBaseView:(UIView *)baseView doorView:(UIView *)doorView roomView:(UIImage*)roomImage;
 - (void) performEnterRoomAnimationWithCompletion:(completionBlock)completion;

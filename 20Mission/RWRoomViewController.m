@@ -8,6 +8,7 @@
 
 #import "RWRoomViewController.h"
 #import "RWRoomDataManager.h"
+#import "RWDoorAnimation.h"
 
 @interface RWRoomViewController ()
 @property (nonatomic, strong) UIView* housemateDetailsView;
@@ -30,6 +31,7 @@
     [super viewDidLoad];
     [self setupRoomImage];
     [self showHousemateDetails];
+    [self setupBackButton];
 }
 
 #pragma mark - View creation helper
@@ -74,12 +76,34 @@
     }];
 }
 
+-(void) setupBackButton {
+    UIButton *backButton = [[UIButton alloc] initWithFrame:CGRectMake(10, 20, 64, 44)];
+    [backButton setTitle:@"< Back" forState:UIControlStateNormal];
+    [backButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [backButton setTitleColor:[UIColor blueColor] forState:UIControlStateHighlighted];
+    backButton.titleLabel.font = [UIFont boldSystemFontOfSize:18.0];
+    [backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+    [self.housemateDetailsView addSubview:backButton];
+}
+
 #pragma mark - Room Data source 
 
 -(NSDictionary*) retrieveHousemateInfo {
     
    RWRoom* currentRoom = [[RWRoomDataManager sharedManager] roomAtDoorNumber:self.roomNumber];
     return currentRoom.roomProperties;
+}
+
+#pragma mark action events
+
+-(void)backButtonTapped:(id)sender {
+    [UIView animateWithDuration:0.2 animations:^{
+        self.housemateDetailsView.alpha = 0;
+    }];
+
+    [self dismissViewControllerAnimated:NO completion:^{
+        [self.delegate didExitRoom];
+    }];
 }
 
 @end

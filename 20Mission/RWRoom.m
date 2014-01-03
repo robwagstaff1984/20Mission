@@ -15,7 +15,8 @@ NSString* const RoomPropertyLabel [] = {
     [JoinDate] = @"Date Joined: ",
     [LeaveDate] =  @"Date Leaving: ",
     [Mood] = @"Mood: ",
-    [Facebook] = @"Facebook: "
+    [Facebook] = @"Facebook: ",
+    [MaintainenceRequests] = @"Maintainence Requests: "
 };
 
 - (id)initWithRoomNumber:(int)roomNumber roomProperties:(NSDictionary*)roomProperties

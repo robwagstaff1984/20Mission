@@ -13,7 +13,8 @@ typedef enum {
     JoinDate,
     LeaveDate,
     Mood,
-    Facebook
+    Facebook,
+    MaintainenceRequests
 } RoomProperty;
 
 extern NSString* const RoomPropertyLabel[];

@@ -39,7 +39,7 @@
 //TODO: Fetch and synchronize with parse.com
 -(void) fetchRoomData {
     
-    NSDictionary* roomProperties = @{[RWRoom labelForRoomProperty:HousemateName]: @"Robert Wagstaff", [RWRoom labelForRoomProperty:HousemateName]: @"Stephanie Harris",  [RWRoom labelForRoomProperty:Mood] : @"Socialable", [RWRoom labelForRoomProperty:JoinDate] : @"10/22/14", [RWRoom labelForRoomProperty:LeaveDate]: @"10/22/15", [RWRoom labelForRoomProperty: Facebook] : @"ww.facebook.com/robertwagstaff"};
+    NSDictionary* roomProperties = @{[RWRoom labelForRoomProperty:HousemateName]: @"Robert Wagstaff", [RWRoom labelForRoomProperty:HousemateName]: @"Stephanie Harris",  [RWRoom labelForRoomProperty:Mood] : @"Socialable", [RWRoom labelForRoomProperty:JoinDate] : @"10/22/14", [RWRoom labelForRoomProperty:LeaveDate]: @"10/22/15", [RWRoom labelForRoomProperty: Facebook] : @"ww.facebook.com/robertwagstaff", [RWRoom labelForRoomProperty:MaintainenceRequests] : @"Replace curtains. Install a light in wardrobe"};
     
     for (int roomNumber=1; roomNumber <= NUMBER_OF_ROOMS; roomNumber++) {
         RWRoom *room = [[RWRoom alloc] initWithRoomNumber:roomNumber roomProperties:roomProperties];

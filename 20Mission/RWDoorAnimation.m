@@ -10,7 +10,9 @@
 
 #define DOOR_FRAME_WIDTH 15
 #define DOOR_OPEN_ANIMATION_TIME 0.8
-#define ENTER_ROOM_ANIMATION_TIME 1.1
+#define DOOR_CLOSE_ANIMATION_TIME 0.5
+#define ENTER_ROOM_ANIMATION_TIME 1.0
+#define EXIT_ROOM_ANIMATION_TIME 0.7
 #define ENTER_ROOM_ZOOMED_OUT_SCALE 0.8
 #define ZOOMED_OUT_ROOM_Y_OFFSET 32
 
@@ -88,7 +90,7 @@
     self.doorLayer.transform = doorOpeningleftTransform;
     self.doorLayer.shadowOffset = CGSizeMake(5.0f, 5.0f);
     self.doorLayer.contents = (id)[RWDoorAnimation clipImageFromLayer:self.doorView.layer size:self.doorLayer.frame.size offsetX:-DOOR_FRAME_WIDTH offsetY:-DOOR_FRAME_WIDTH];
-    self.doorLayer.zPosition = 100;
+    self.doorLayer.zPosition = 200;
     [self.baseView.layer addSublayer:self.doorLayer];
 }
 
@@ -126,7 +128,7 @@
     openAnim.fromValue = [NSNumber numberWithFloat:[self degreeToRadian:(degree)]];
     self.doorLayer.transform = CATransform3DRotate(self.doorLayer.transform, [self degreeToRadian:0.0f], 0.0, 1.0, 0.0);
     openAnim.toValue = [NSNumber numberWithFloat:[self degreeToRadian:(0.0)]];
-    openAnim.duration = DOOR_OPEN_ANIMATION_TIME;
+    openAnim.duration = DOOR_CLOSE_ANIMATION_TIME;
     
     return openAnim;
 }
@@ -160,7 +162,7 @@
 
 -(void) animateWalkingOutOfRoom {
     
-    [UIView animateWithDuration:ENTER_ROOM_ANIMATION_TIME animations:^(void) {
+    [UIView animateWithDuration:EXIT_ROOM_ANIMATION_TIME animations:^(void) {
         self.doorFrameImageView.frame = self.doorView.frame;
         self.roomClippingView.frame = [self doorInteriorRect];
         self.roomImageView.frame = [self roomImageBeforeEnteringRoomRect];

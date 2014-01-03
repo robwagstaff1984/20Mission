@@ -15,6 +15,7 @@
 		4A975D33185F9ED8003546F1 /* Room5@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D31185F9ED8003546F1 /* Room5@2x.png */; };
 		4A975D36185F9F64003546F1 /* Room2.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D34185F9F64003546F1 /* Room2.png */; };
 		4A975D37185F9F64003546F1 /* Room3.png in Resources */ = {isa = PBXBuildFile; fileRef = 4A975D35185F9F64003546F1 /* Room3.png */; };
+		4AAB4B071877428000C0AC59 /* DoorKnockIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 4AAB4B061877428000C0AC59 /* DoorKnockIcon.png */; };
 		4AB64E28185B767A00D64442 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB64E27185B767A00D64442 /* Foundation.framework */; };
 		4AB64E2A185B767A00D64442 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB64E29185B767A00D64442 /* CoreGraphics.framework */; };
 		4AB64E2C185B767A00D64442 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4AB64E2B185B767A00D64442 /* UIKit.framework */; };
@@ -98,6 +99,7 @@
 		4A975D31185F9ED8003546F1 /* Room5@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Room5@2x.png"; path = "images/Room5@2x.png"; sourceTree = "<group>"; };
 		4A975D34185F9F64003546F1 /* Room2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Room2.png; path = images/Room2.png; sourceTree = "<group>"; };
 		4A975D35185F9F64003546F1 /* Room3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Room3.png; path = images/Room3.png; sourceTree = "<group>"; };
+		4AAB4B061877428000C0AC59 /* DoorKnockIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = DoorKnockIcon.png; path = images/DoorKnockIcon.png; sourceTree = "<group>"; };
 		4AB64E24185B767A00D64442 /* 20Mission.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 20Mission.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4AB64E27185B767A00D64442 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		4AB64E29185B767A00D64442 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -248,6 +250,7 @@
 				4A975D31185F9ED8003546F1 /* Room5@2x.png */,
 				4A975D28185F920C003546F1 /* Room4.png */,
 				4A975D2A185F9E86003546F1 /* Room4@2x.png */,
+				4AAB4B061877428000C0AC59 /* DoorKnockIcon.png */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -473,6 +476,7 @@
 				4AB7F11A185BA1DA003974E6 /* Door19.png in Resources */,
 				4A975D36185F9F64003546F1 /* Room2.png in Resources */,
 				4AB7F11F185BA1DA003974E6 /* Door24.png in Resources */,
+				4AAB4B071877428000C0AC59 /* DoorKnockIcon.png in Resources */,
 				4AB7F10A185BA1DA003974E6 /* Door3.png in Resources */,
 				4AB7F12B185BA1DA003974E6 /* Door36.png in Resources */,
 				4AB7F12A185BA1DA003974E6 /* Door35.png in Resources */,

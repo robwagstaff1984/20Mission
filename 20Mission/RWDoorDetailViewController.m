@@ -16,6 +16,9 @@
 #define DOOR_DASHBOARD_ANIMATION_TIME 0.4 
 #define FULL_SIZE_DOOR_TOP_MARGIN 60
 #define FULL_SIZE_DOOR_BOTTOM_MARGIN 30
+#define DOOR_KNOCK_ICON_WIDTH 60
+#define DOOR_KNOCK_ICON_HEIGHT 50
+#define DOOR_KNOCK_FADE_ANIMATION_TIME 0.7
 
 @interface RWDoorDetailViewController ()
 @property (nonatomic, strong) UIImageView* doorDetailImageView;
@@ -106,22 +109,49 @@
 #pragma mark door knock gesture
 
 -(void) addDoorKnockGestureRecognizer {
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
-    tapGesture.numberOfTapsRequired = 2;
+    UITapGestureRecognizer *singleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleSingleTapGesture:)];
+
+    UITapGestureRecognizer *doubleTapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleDoubleTapGesture:)];
+    doubleTapGesture.numberOfTapsRequired = 2;
     
-    [self.doorDetailImageView addGestureRecognizer:tapGesture];
+    [self.doorDetailImageView addGestureRecognizer:singleTapGesture];
+    [self.doorDetailImageView addGestureRecognizer:doubleTapGesture];
+}
+
+- (void)handleSingleTapGesture:(UITapGestureRecognizer *)sender {
+    if (sender.state == UIGestureRecognizerStateRecognized) {
+        [self addDoorKnockImageAtPoint:[sender locationInView:self.view] completionBlock:nil];
+    }
 }
 
 - (void)handleDoubleTapGesture:(UITapGestureRecognizer *)sender {
     if (sender.state == UIGestureRecognizerStateRecognized) {
+
         [self setupRoomImageView];
-        RWDoorAnimation *doorAnimation = [[RWDoorAnimation alloc] initWithBaseView:self.view doorView:self.doorDetailImageView roomView:self.roomImage];
-        [doorAnimation performEnterRoomAnimationWithCompletion:^{
-            RWRoomViewController* roomViewController = [[RWRoomViewController alloc] initWithRoomNumber:self.roomNumber];
-            roomViewController.delegate = doorAnimation;
-            [self presentViewController:roomViewController animated:NO completion:nil];
+        __weak typeof(self) weakSelf = self;
+        [self addDoorKnockImageAtPoint:[sender locationInView:self.view] completionBlock:^{
+            RWDoorAnimation *doorAnimation = [[RWDoorAnimation alloc] initWithBaseView:weakSelf.view doorView:weakSelf.doorDetailImageView roomView:weakSelf.roomImage];
+            [doorAnimation performEnterRoomAnimationWithCompletion:^{
+                RWRoomViewController* roomViewController = [[RWRoomViewController alloc] initWithRoomNumber:weakSelf.roomNumber];
+                roomViewController.delegate = doorAnimation;
+                [weakSelf presentViewController:roomViewController animated:NO completion:nil];
+            }];
         }];
     }
+}
+
+-(void) addDoorKnockImageAtPoint:(CGPoint)targetPoint completionBlock:(void (^)(void))completionBlock {
+    UIImageView* knockImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"DoorKnockIcon.png"]];
+    knockImageView.frame = CGRectMake(targetPoint.x - DOOR_KNOCK_ICON_WIDTH / 2, targetPoint.y - DOOR_KNOCK_ICON_HEIGHT / 2, DOOR_KNOCK_ICON_WIDTH, DOOR_KNOCK_ICON_HEIGHT);
+    [self.view addSubview:knockImageView];
+    [UIView animateWithDuration:DOOR_KNOCK_FADE_ANIMATION_TIME delay:0.0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        knockImageView.alpha = 0;
+    } completion:^(BOOL finished) {
+        [knockImageView removeFromSuperview];
+        if(completionBlock) {
+            completionBlock();
+        }
+    }];
 }
 
 - (void) zoomOutToHomeViewController:(UITapGestureRecognizer *)sender {

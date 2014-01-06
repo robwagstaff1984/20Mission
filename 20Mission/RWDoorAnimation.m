@@ -44,7 +44,8 @@
 }
 #pragma mark - public methods
 - (void) performEnterRoomAnimationWithCompletion:(completionBlock)completion {
-    [self.doorView removeFromSuperview];
+//    [self.doorView removeFromSuperview];
+    
     self.completion = completion;
     
     [self addClippedViewOfRoom];
@@ -141,7 +142,9 @@
             [self.doorLayer removeFromSuperlayer];
             [self animateWalkingIntoRoom];
         } else if (anim == [self.doorLayer animationForKey:@"doorClosingAnimation"]) {
-            
+            [self.doorLayer removeFromSuperlayer];
+            [self.roomClippingView removeFromSuperview];
+            [self.doorFrameImageView removeFromSuperview];
         }
     }
 }

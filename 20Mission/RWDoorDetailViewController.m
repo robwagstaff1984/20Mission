@@ -18,14 +18,14 @@
 #define FULL_SIZE_DOOR_BOTTOM_MARGIN 30
 #define DOOR_KNOCK_ICON_WIDTH 60
 #define DOOR_KNOCK_ICON_HEIGHT 50
-#define DOOR_KNOCK_FADE_ANIMATION_TIME 0.7
+#define DOOR_KNOCK_FADE_ANIMATION_TIME 0.6
 
 @interface RWDoorDetailViewController ()
 @property (nonatomic, strong) UIImageView* doorDetailImageView;
 @property (nonatomic) CGRect initialDoorImageRect;
 @property (nonatomic, strong) UIImageView* transitionImageView;
 @property (nonatomic, strong) UIImage* roomImage;
-@property (nonatomic, strong) UIView* hideSelectedDoorFromTransitionView;
+@property (nonatomic, strong) UIView* semiTransparentBackgroundView;
 @property (nonatomic, strong) UIView* doorDashboardView;
 @property (nonatomic, assign) int roomNumber;
 @end
@@ -40,7 +40,7 @@
     if (self) {
         self.roomNumber = roomNumber;
         [self setupHideSelectedDoorFromTransitionView];
-        [self setupDoorDashboardView];
+        [self setupSemiTransparentBackgroundView];
         [self setupDoorDetailImageView];
     }
     return self;
@@ -73,7 +73,7 @@
     [self.doorDetailImageView setImage:image];
     self.initialDoorImageRect = CGRectMake(initialRect.origin.x, initialRect.origin.y + NAV_BAR_HEIGHT, initialRect.size.width, initialRect.size.height);
     [self.doorDetailImageView setFrame:self.initialDoorImageRect];
-    [self.hideSelectedDoorFromTransitionView setFrame:self.initialDoorImageRect];
+    [self.semiTransparentBackgroundView setFrame:self.initialDoorImageRect];
 }
 
 #pragma mark setup helpers
@@ -85,12 +85,12 @@
 }
 
 -(void) setupHideSelectedDoorFromTransitionView {
-    self.hideSelectedDoorFromTransitionView = [[UIView alloc] init];
-    [self.hideSelectedDoorFromTransitionView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:self.hideSelectedDoorFromTransitionView];
+    self.semiTransparentBackgroundView = [[UIView alloc] init];
+    [self.semiTransparentBackgroundView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:self.semiTransparentBackgroundView];
 }
 
--(void) setupDoorDashboardView {
+-(void) setupSemiTransparentBackgroundView {
     self.doorDashboardView = [[UIView alloc] initWithFrame:self.view.bounds];
     self.doorDashboardView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.75];
     [self.view addSubview:self.doorDashboardView];

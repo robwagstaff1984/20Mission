@@ -24,6 +24,8 @@ extern NSString* const RoomPropertyLabel[];
 @property (nonatomic, strong) NSDictionary* roomProperties;
 
 - (id)initWithRoomNumber:(int)roomNumber roomProperties:(NSDictionary*)roomProperties;
+-(NSString*) valueForRoomProperty:(RoomProperty)roomProperty;
 +(NSString*) labelForRoomProperty:(RoomProperty)roomProperty;
+
 
 @end

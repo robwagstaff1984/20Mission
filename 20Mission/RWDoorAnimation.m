@@ -10,9 +10,9 @@
 
 #define DOOR_FRAME_WIDTH 15
 #define DOOR_OPEN_ANIMATION_TIME 0.8
-#define DOOR_CLOSE_ANIMATION_TIME 0.5
+#define DOOR_CLOSE_ANIMATION_TIME 0.4
 #define ENTER_ROOM_ANIMATION_TIME 1.0
-#define EXIT_ROOM_ANIMATION_TIME 0.7
+#define EXIT_ROOM_ANIMATION_TIME 0.5
 #define ENTER_ROOM_ZOOMED_OUT_SCALE 0.8
 #define ZOOMED_OUT_ROOM_Y_OFFSET 32
 
@@ -64,8 +64,7 @@
 
 #pragma mark - view creation helpers
 -(void) addClippedViewOfRoom {
-    self.roomClippingView = [[UIView alloc] initWithFrame: [self doorInteriorRect]];
-    self.roomClippingView.backgroundColor = [UIColor redColor];
+    self.roomClippingView = [[UIView alloc] initWithFrame: self.doorView.frame];
     self.roomClippingView.clipsToBounds = YES;
 
     self.roomImageView = [[UIImageView alloc] initWithImage:self.roomImage];
@@ -167,7 +166,7 @@
     
     [UIView animateWithDuration:EXIT_ROOM_ANIMATION_TIME animations:^(void) {
         self.doorFrameImageView.frame = self.doorView.frame;
-        self.roomClippingView.frame = [self doorInteriorRect];
+        self.roomClippingView.frame =  self.doorView.frame;
         self.roomImageView.frame = [self roomImageBeforeEnteringRoomRect];
         self.roomImageView.transform = CGAffineTransformScale(self.roomImageView.transform, ENTER_ROOM_ZOOMED_OUT_SCALE, ENTER_ROOM_ZOOMED_OUT_SCALE);
     } completion:^(BOOL finished) {

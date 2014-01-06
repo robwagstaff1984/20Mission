@@ -29,6 +29,10 @@ NSString* const RoomPropertyLabel [] = {
     return self;
 }
 
+-(NSString*) valueForRoomProperty:(RoomProperty)roomProperty {
+    return self.roomProperties[[RWRoom labelForRoomProperty:roomProperty]];
+}
+
 +(NSString*) labelForRoomProperty:(RoomProperty)roomProperty {
     return RoomPropertyLabel[roomProperty];
 }

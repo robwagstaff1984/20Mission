@@ -11,6 +11,9 @@
 #import "AppDelegate.h"
 #import "RWDoorAnimation.h"
 #import "RWRoomViewController.h"
+#import "RWRoom.h"
+#import "RWRoomDataManager.h"
+
 
 #define DOOR_ZOOM_ANIMATION_TIME 0.5
 #define DOOR_DASHBOARD_ANIMATION_TIME 0.4 
@@ -25,9 +28,10 @@
 @property (nonatomic) CGRect initialDoorImageRect;
 @property (nonatomic, strong) UIImageView* transitionImageView;
 @property (nonatomic, strong) UIImage* roomImage;
+@property (nonatomic, strong) UIView* hideSelectedDoorFromTransitionView;
 @property (nonatomic, strong) UIView* semiTransparentBackgroundView;
-@property (nonatomic, strong) UIView* doorDashboardView;
 @property (nonatomic, assign) int roomNumber;
+@property (nonatomic, strong) UILabel* housemateNameLabel;
 @end
 
 @implementation RWDoorDetailViewController
@@ -55,7 +59,7 @@
     } completion:^(BOOL finished) {
         
         [UIView animateWithDuration:DOOR_DASHBOARD_ANIMATION_TIME animations:^{
-            self.doorDashboardView.alpha = 1;
+            self.semiTransparentBackgroundView.alpha = 1;
             [self addDoorKnockGestureRecognizer];
         }];
     }];
@@ -73,7 +77,7 @@
     [self.doorDetailImageView setImage:image];
     self.initialDoorImageRect = CGRectMake(initialRect.origin.x, initialRect.origin.y + NAV_BAR_HEIGHT, initialRect.size.width, initialRect.size.height);
     [self.doorDetailImageView setFrame:self.initialDoorImageRect];
-    [self.semiTransparentBackgroundView setFrame:self.initialDoorImageRect];
+    [self.hideSelectedDoorFromTransitionView setFrame:self.initialDoorImageRect];
 }
 
 #pragma mark setup helpers
@@ -85,17 +89,28 @@
 }
 
 -(void) setupHideSelectedDoorFromTransitionView {
-    self.semiTransparentBackgroundView = [[UIView alloc] init];
-    [self.semiTransparentBackgroundView setBackgroundColor:[UIColor whiteColor]];
-    [self.view addSubview:self.semiTransparentBackgroundView];
+    self.hideSelectedDoorFromTransitionView = [[UIView alloc] init];
+    [self.hideSelectedDoorFromTransitionView setBackgroundColor:[UIColor whiteColor]];
+    [self.view addSubview:self.hideSelectedDoorFromTransitionView];
 }
 
 -(void) setupSemiTransparentBackgroundView {
-    self.doorDashboardView = [[UIView alloc] initWithFrame:self.view.bounds];
-    self.doorDashboardView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.75];
-    [self.view addSubview:self.doorDashboardView];
-    self.doorDashboardView.alpha = 0;
-    [self.doorDashboardView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomOutToHomeViewController:)]];
+    self.semiTransparentBackgroundView = [[UIView alloc] initWithFrame:self.view.bounds];
+    self.semiTransparentBackgroundView.backgroundColor = [UIColor colorWithRed:0.0 green:0.0 blue:0.0 alpha:0.75];
+    [self.view addSubview:self.semiTransparentBackgroundView];
+    [self addHousemateNameLabel];
+    self.semiTransparentBackgroundView.alpha = 0;
+    [self.semiTransparentBackgroundView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(zoomOutToHomeViewController:)]];
+}
+
+-(void) addHousemateNameLabel {
+    RWRoom* currentRoom = [[RWRoomDataManager sharedManager] roomAtDoorNumber:self.roomNumber];
+    self.housemateNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 30, 280, 44)];
+    self.housemateNameLabel.textColor = [UIColor whiteColor];
+    self.housemateNameLabel.font = [UIFont boldSystemFontOfSize:16.0];
+    self.housemateNameLabel.textAlignment = NSTextAlignmentCenter;
+    self.housemateNameLabel.text = [currentRoom valueForRoomProperty:HousemateName];;
+    [self.semiTransparentBackgroundView addSubview:self.housemateNameLabel];
 }
 
 -(void)setTransitionImageView:(UIImageView*)transitionImageView {
@@ -156,7 +171,10 @@
 
 - (void) zoomOutToHomeViewController:(UITapGestureRecognizer *)sender {
      if (sender.state == UIGestureRecognizerStateRecognized) {
+
+
          [UIView animateWithDuration:DOOR_ZOOM_ANIMATION_TIME animations:^{
+                     self.semiTransparentBackgroundView.alpha = 0;
              self.doorDetailImageView.frame = self.initialDoorImageRect;
          } completion:^(BOOL finished) {
              [self dismissViewControllerAnimated:NO completion:nil];
